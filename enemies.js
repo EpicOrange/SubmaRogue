@@ -2,39 +2,46 @@
 
 
 class Enemy {
-  constructor(x, y, char, color, hp, damage, pathfinder) {
+  constructor(x, y, options) {
     this.x = x;
     this.y = y;
-    this.char = char;
-    this.color = color;
-    this.hp = hp;
-    this.damage = damage;
-    this.pathfinder = pathfinder; // return next pos
+    this.char = options.char;
+    this.color = options.color;
+    this.hp = options.maxHp;
+    this.damage = options.damage;
+    this.pathfinder = options.pathfinder;
     this.draw();
+  }
+  moveTo(new_x, new_y) {
+    Game.map.drawTile(this.x, this.y, this.char, this.color); // draw map tile
+    this.x = x;
+    this.y = y;
+    this.drawTile();
   }
   act() {
     var playerX = Game.player.getX();
     var playerY = Game.player.getY();
     var isPassable = (x, y) => (x+","+y in Game.map);
-    var astar = new ROT.Path.AStar(x, y, isPassable, {topology:8});
     var path = [];
-    astar.compute(this.x, this.y, (x, y) => {path.push([x, y]);});
+    pathfinder.compute(this.x, this.y, (x, y) => {path.push([x, y]);});
     if (path.length <= 1) {
       // attack player
-      Game.player.damage(this.damage);
+      // Game.player.damage(this.damage);
     } else {
       x = path[1][0];
       y = path[1][1];
-      Game.map.drawTile(this.x, this.y);
-
-      Game.display.draw(this.x, this.y, Game.map[this.x+","+this.y]); // draw map tile
-      this.x = x;
-      this.y = y;
-      this.draw();
+      this.moveTo(x, y);
     }
   }
   draw() {
-    Game.display.draw(this.x, this.y, "P", "red");
+    Game.map.drawEntity(this);
   }
 }
-    
+
+var fish = new Enemy(x, y, {
+  char: "F",
+  color: "orange",
+  maxHp: 10,
+  damage: 1,
+  pathfinder: new ROT.Path.AStar(x, y, isPassable, {topology: 8})
+});
