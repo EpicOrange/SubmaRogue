@@ -11,7 +11,7 @@ class Enemy {
     this.pathfinder = options.pathfinder;
     this.draw();
   }
-  moveTo(new_x, new_y) {
+  moveTo(x, y) {
     Game.map.drawTile(this.x, this.y, this.char, this.color); // draw map tile
     this.x = x;
     this.y = y;
