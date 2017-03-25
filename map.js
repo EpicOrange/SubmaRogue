@@ -1,3 +1,6 @@
+// 1 = wall
+// 0 = passable
+
 class Map {
   constructor(width, height) {
     this.width = width;
@@ -17,6 +20,12 @@ class Map {
       this.map[key]='.';
     }
     cellMap.create(mapCallback.bind(this));
+  }
+  at(x, y) {
+    return (x + "," + y);
+  }
+  isPassable(x, y) {
+    return this.at(x, y) == 0;
   }
   draw() {
     for (var key in this.map) {
