@@ -28,7 +28,7 @@ class Map {
     return (x + "," + y);
   }
   isPassable(x, y) {
-    return this.at(x, y) == 0;
+    return this.map[this.at(x, y)] == '.';
   }
   draw(x, y, char, color) {
       Game.display.draw(x, y, char, color);
