@@ -134,7 +134,7 @@ var items = {
     color:'gold',
     char:'⏣',
     name:'shining trapezohedron',
-    type:'treaure',
+    type:'treasure',
     value: 500
   },
 };

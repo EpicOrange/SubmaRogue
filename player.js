@@ -4,7 +4,7 @@ class Player extends Entity {
       {
         char: '@',
         color: 'yellow',
-        hp: 60,
+        hp: 5000,
         speed: 100,
         atk:3,
         def:1
@@ -13,7 +13,7 @@ class Player extends Entity {
       weapon: new Item(0, 0, 'pointy stick'),
       armor: new Item(0, 0, 'rock'),
     };
-    this.oxygen = 100;
+    this.oxygen = 100000;
     this.lightRange = 1000; // TODO change according to items?
   }
   damage(dmg){
@@ -126,6 +126,8 @@ class Player extends Entity {
             weapon: new Item(0, 0, 'gungnir'),
             armor: new Item(0, 0, 'aegis of Poseidon'),
           };
+          this.atk = this.items.weapon.value;
+          this.def = this.items.armor.value;
           Game.map.removeItem(this.x,this.y);
           Game.generateMilitary();
           Game.log.add(`As you pick up the shining trapezohedron, you feel a change`);

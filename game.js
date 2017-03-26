@@ -99,7 +99,7 @@ var Game = {
   generateMilitary() {
     difficulty = 3; // # to spawn
     for (let i = 9; i >= 0; i--) { // levels 1-10
-      const map = maps[i];
+      const map = this.maps[i];
       for (let j = 0; j < difficulty; j++) {
         map.createEntityAtFreeCell(Enemy, enemies.military);
       }

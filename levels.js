@@ -95,8 +95,8 @@ var finalLevel = function(){
 
 // Level 1-6 = ocean
 // Level 7-9 = Atlantis (dungeon)
-// Level 10-12 = Atlantis (maze)
-// Level 13 = Final floor, boss? get best items
+// Level 10 = Atlantis (maze)
+// Level 11 = Final floor, boss? get best items
 
 var levels = [
   null, // level 0, should never be referenced
@@ -314,5 +314,30 @@ var levels = [
       }
     },
     lightRadius: 15,
+  },
+  { // level 11
+    generateTiles: finalLevel(),
+    generateEntities(map) {
+      map.addItem('shining trapezohedron');
+      for (let i = 0; i < 2; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.atlanteanwarrior);
+      }
+      for (let i = 0; i < 2; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.atlanteanguard);
+      }
+      for (let i = 0; i < 2; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.atlanteandestroyer);
+      }
+      for (let i = 0; i < 3; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.atlanteanchaser);
+      }
+      for(let i=0;i<5;i++){
+        map.addItem('oxygen500');
+      }
+      for(let i=0;i<4;i++){
+        map.addItem('oxygen100');
+      }
+    },
+    lightRadius: 10,
   }
 ];

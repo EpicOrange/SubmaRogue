@@ -145,5 +145,15 @@ var enemies = {
     "speed":250,
     "pathfinder":"go_straight_towards",
     "name":"atlantean chaser",
+  },
+  "military":{
+    "char":"M",
+    "color":"#0faf0f",
+    "hp":100,
+    "atk":10,
+    "def":0,
+    "speed":100,
+    "pathfinder":"go_straight_towards",
+    "name":"military",
   }
 };

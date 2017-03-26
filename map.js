@@ -129,7 +129,6 @@ class Map {
     var [x, y] = this.getPos(key);
     var entity = new what(x, y, options);
     this.entities[key] = entity;
-    this.drawObject(entity);
     return entity;
   }
   revealMapAroundPlayer() {
@@ -161,6 +160,13 @@ class Map {
   addItem(name){
     var key = this.pullFreeCellKey();
     var [x, y] = this.getPos(key);
+    if (name == 'shining trapezohedron') {
+      var [sx, sy] = this.getPos(this.upStairsKey);
+      x = sx + Math.floor(ROT.RNG.getUniform() * 5) - 2; // +- 2
+      y = sy + Math.floor(ROT.RNG.getUniform() * 5) - 2;
+      key = this.getKey(x, y);
+      console.log(x, y, key);
+    }
     this.items[key]=new Item(x,y,name);
     this.drawTile(x,y);
   }
