@@ -55,6 +55,31 @@ var maze = function(){
   };
 };
 
+var firstLevel = function(){
+  return function(map){
+    const createTree = (x, y) => {
+      var key = x+','+y;
+      map.map[key]=(Math.random() < .5 ? '♠' : '♣');
+    };
+    for (let i = 0; i < 10; i++) {
+      createTree(Math.floor(Math.random() * map.width), Math.floor(Math.random() * map.height));
+    }
+    for (let y = 0; y < map.height; y++) {
+      for (let x = 0; x < map.width; x++) {
+        var key = x+','+y;
+        if (map.map[key]!='#') {
+          map.map[key]='~';
+          var isInsideMiddle = (x > 7 && x < map.width - 7 && y > 7 && y < map.height - 7);
+          if (isInsideMiddle) {
+            map.freeCells.push(key);
+          }
+        }
+      }
+    }
+    map.generateDownStairs();
+  };
+};
+
 var finalLevel = function(){
   return function(map){
     const createPillar = (cx, cy) => {
@@ -99,7 +124,14 @@ var finalLevel = function(){
 // Level 11 = Final floor, boss? get best items
 
 var levels = [
-  null, // level 0, should never be referenced
+  { // level 0
+    generateTiles: firstLevel(),
+    generateEntities(map){
+      for (let i = 0; i < 5; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.person);
+      }
+    },
+  },
   { // level 1
     generateTiles: cave(0.7),
     generateEntities(map){

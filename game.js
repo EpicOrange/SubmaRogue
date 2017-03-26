@@ -32,33 +32,36 @@ var Game = {
     this.scheduler = new ROT.Scheduler.Speed();
     this.engine = new ROT.Engine(this.scheduler);
 
-    this.maps = [];
+    this.maps = [false];
     this.switchToMap(1, true);
 
     this.engine.start();
   },
-  addNewMap() {
+  addNewMap(index) {
     const map = new Map(width, height);
     const level = levels[this.level];
     level.generateTiles(map);
     level.generateEntities(map);
     map.lightRadius = level.lightRadius || 900; // defaults to 900
-    this.maps.push(map);
+    if (index == this.maps.length) {
+      this.maps.push(map);
+    } else {
+      this.maps[index] = map;
+    }
   },
   switchToMap(level, atUpStairs) {
     this.level = level;
-    const index = level - 1;
     if (this.map) {
       this.map.removePlayerEntity(this.player);
       this.map.removeEnemiesFromScheduler();
     }
-    if (index >= this.maps.length) {
-      this.addNewMap();
+    if (level >= this.maps.length || !this.maps[level]) {
+      this.addNewMap(level);
       this.log.printStory(level);
-    } else if (index < 0) {
+    } else if (level < 0) {
       return;
     }
-    this.map = this.maps[index];
+    this.map = this.maps[level];
     const playerPosKey = (atUpStairs ? this.map.upStairsKey : this.map.downStairsKey);
     this.map.placePlayerEntity(this.player, playerPosKey);
     this.map.addEnemiesToScheduler();
@@ -80,6 +83,7 @@ var Game = {
       this.switchToMap(this.level - 1, false);
       this.log.add("You ascend the stairs.");
     } else {
+      this.switchToMap(0, false);
       if (this.player.hasTreasure) {
         this.winGame();
       } else {
@@ -107,6 +111,6 @@ var Game = {
     }
   },
   winGame() {
-    // TODO
+    
   },
 };

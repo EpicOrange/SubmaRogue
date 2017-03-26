@@ -1,4 +1,4 @@
-const passableTiles = '.%<>';
+const passableTiles = '.%<>"~';
 
 function chebyshevDistance(pos1, pos2) {
   return Math.max(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x));

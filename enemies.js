@@ -155,5 +155,15 @@ var enemies = {
     "speed":100,
     "pathfinder":"go_straight_towards",
     "name":"military",
+  },
+  "person":{
+    "char":"@",
+    "color":"white",
+    "hp":1,
+    "atk":0,
+    "def":0,
+    "speed":100,
+    "pathfinder":"wander",
+    "name":"an innocent person",
   }
 };

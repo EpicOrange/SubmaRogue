@@ -98,6 +98,10 @@ class Log {
       this.add("A non-Euclidean object greets you in the sanctum center.");
       this.add("It sparkles with an eerie glow. This must be the treasure!");
       break;
+    case 0:
+      this.clear();
+      this.add(`You crawl out of the watery labyrinth with spear in hand.`);
+      break;
     }
     // this is the char limit
     //this.add("You find yourself in the dim, pressurized halls of Atlantis.");

@@ -13,7 +13,8 @@ class Player extends Entity {
       weapon: new Item(0, 0, 'pointy stick'),
       armor: new Item(0, 0, 'rock'),
     };
-    this.oxygen = 100;
+    this.oxygen = 100000;
+    this.lightRange = 1000; // TODO change according to items?
   }
   damage(dmg){
     if (!this.hasTreasure) {
@@ -78,7 +79,7 @@ class Player extends Entity {
       keyMap[72] = keyMap[37] = keyMap[52] = 6; // left
       keyMap[89] =              keyMap[55] = 7; // top left
       keyMap[190] = keyMap[32] = keyMap[53] = '.'; // wait
-      keyMap[71] = keyMap[188] = keyMap[48] = 'g';//item
+      keyMap[71] = keyMap[188] = 'g';
       if (e.shiftKey) {
         if (Game.map.at(Game.player.x, Game.player.y) == "<") {
           keyMap[188] = '<';
