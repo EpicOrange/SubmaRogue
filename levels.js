@@ -24,7 +24,7 @@ class MapGenerator {
 var cave = function(randomness){
   return function(map){
     // '.' tiles
-    var cellMap = new ROT.Map.Cellular(map.width,map.height,{
+    var cellMap = new ROT.Map.Cellular(map.width-2,map.height-2,{
       connected:true
     });
     cellMap.randomize(randomness);
@@ -40,6 +40,23 @@ var cave = function(randomness){
     for(var i=0; i<10;i++)cellMap.create();
     cellMap.connect(mapCallback.bind(map),1);
     map.generateStairs(); // stairs
+  }
+}
+
+var dungeon = function(){
+  return function(map){
+    var diggerMap = new ROT.Map.Digger(map.width-2, map.height-2);
+    var mapCallback = function(x,y,value){
+      var key = x+','+y;
+      if (value == 1) {
+        map.map[key]='X';
+      } else {
+        map.map[key]='.';
+        map.freeCells.push(key);
+      }
+    };
+    diggerMap.create(mapCallback.bind(map));
+    map.generateStairs();
   }
 }
 
@@ -147,7 +164,7 @@ var levels = [
     }
   },
   { // level 6
-    generateTiles: cave(0.45),
+    generateTiles: dungeon(),
     generateEntities(map) {
       for (let i = 0; i < 2; i++) {
         map.createEntityAtFreeCell(Enemy, enemies.giantsquid);
