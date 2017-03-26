@@ -8,7 +8,4 @@ class Item{
     this.type = options.type;//oxygen, armor, weapon, etc
     this.value = options.value;//amount of oxygen, defense value of armor, attack of weapon, etc
   }
-  draw(){
-    Game.map.drawEntity(this);
-  }
 }

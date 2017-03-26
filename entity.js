@@ -10,7 +10,6 @@ class Entity {
     this.atk = options.atk;
     this.def = options.def;
     this.name = options.name;
-    this.draw();
   }
   damage(dmg) {
     dmg = Math.min(0, -dmg + this.def);
