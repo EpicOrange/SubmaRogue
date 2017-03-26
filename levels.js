@@ -192,8 +192,8 @@ var levels = [
       for(let i=0;i<2;i++){
         map.addItem('oxygen100');
       }
+      map.addItem('defense crystal');
     },
-    map.addItem('defense crystal');
     lightRadius: 30,
   },
   { // level 6
@@ -235,8 +235,8 @@ var levels = [
       for(let i=0;i<1;i++){
         map.addItem('oxygen100');
       }
+      map.addItem('charm of warding');
     },
-    map.addItem('charm of warding');
     lightRadius: 24,
   },
   { // level 8
@@ -258,9 +258,9 @@ var levels = [
         map.addItem('oxygen100');
       }
       map.addItem('oxygen200');
+        map.addItem('awl pike');
     },
     lightRadius: 21,
-    map.addItem('awl pike');
   },
   { // level 9
     generateTiles: dungeon(),
