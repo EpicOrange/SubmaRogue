@@ -9,92 +9,102 @@ class Player extends Entity {
         atk:3,
         def:0
       });
-    this.items = {
-      armor:new Item(0,0,{
-        color:'blue',
-        char:'V',
-        name:'suit',
-        type:'armor',
-        value:1
-      }),
-      weapon:new Item(0,0,{
-        color:'brown',
-        char:'/',
-        name:'stick',
-        type:'weapon',
-        value: 3
-      })
-    };
-  }
-  damage(dmg){
-    super.damage(dmg);
-    Game.log.add(`you took ${dmg} damage.`);
-  }
-  die() {
-    Game.log.add('You have died.');
-  }
+      this.items = {
+        armor:new Item(0,0,{
+          color:'blue',
+          char:'V',
+          name:'suit',
+          type:'armor',
+          value:1
+        }),
+        weapon:new Item(0,0,{
+          color:'brown',
+          char:'/',
+          name:'stick',
+          type:'weapon',
+          value: 3
+        })
+      };
+    }
+    damage(dmg){
+      super.damage(dmg);
+      Game.log.add(`you took ${dmg} damage.`);
+    }
+    die() {
+      Game.log.add('You have died.');
+    }
 
-  act(){
-    Game.status.update();
-    Game.log.update();
-    Game.engine.lock();
-    /* wait for user input; do stuff when user hits a key */
-    window.addEventListener('keydown', this);
-  }
+    act(){
+      Game.status.update();
+      Game.log.update();
+      Game.engine.lock();
+      /* wait for user input; do stuff when user hits a key */
+      window.addEventListener('keydown', this);
+    }
 
-  handleEvent(e){
-    var keyMap = {};
+    handleEvent(e){
+      var keyMap = {};
 
-    //hjklyubn   arrow keys   numpad
-    keyMap[75] = keyMap[38] = keyMap[56] = 0; // top
-    keyMap[85] =              keyMap[57] = 1; // top right
-    keyMap[76] = keyMap[39] = keyMap[54] = 2; // right
-    keyMap[78] =              keyMap[51] = 3; // bottom right
-    keyMap[74] = keyMap[40] = keyMap[50] = 4; // bottom
-    keyMap[66] =              keyMap[49] = 5; // bottom left
-    keyMap[72] = keyMap[37] = keyMap[52] = 6; // left
-    keyMap[89] =              keyMap[55] = 7; // top left
-    //todo 71 (G) 188 (,) for picking up items
-    keyMap[71] = keyMap[188] = 'i';//check items
-    var code = e.keyCode;
-    e.preventDefault(); // prevent e.g. arrow keys from scrolling the page
+      //hjklyubn   arrow keys   numpad
+      keyMap[75] = keyMap[38] = keyMap[56] = 0; // top
+      keyMap[85] =              keyMap[57] = 1; // top right
+      keyMap[76] = keyMap[39] = keyMap[54] = 2; // right
+      keyMap[78] =              keyMap[51] = 3; // bottom right
+      keyMap[74] = keyMap[40] = keyMap[50] = 4; // bottom
+      keyMap[66] =              keyMap[49] = 5; // bottom left
+      keyMap[72] = keyMap[37] = keyMap[52] = 6; // left
+      keyMap[89] =              keyMap[55] = 7; // top left
+      keyMap[190] = keyMap[32] = keyMap[53] = '.'; // wait
+      keyMap[71] = keyMap[188] = 'i';
 
-    if(!(code in keyMap))return;
-    //get item
-    if(keyMap[code]=='i'){
-      var item = Game.map.getItem(this.x,this.y);
-      if(item){
-        if(item.type=='weapon'){
-          Game.map.dropItem(this.items.weapon,this.x,this.y);
-          this.items.weapon=item;
-          this.atk=item.value;
-          Game.log.add('Picked up ' + item.name + '.');
-        }else if(item.type=='armor'){
-          Game.map.dropItem(this.items.armor,this.x,this.y);
-          this.items.armor=item;
-          this.def=item.value;
-          Game.log.add('Picked up ' + item.name + '.');
+      var code = e.keyCode;
+      e.preventDefault(); // prevent e.g. arrow keys from scrolling the page
+
+      switch(keyMap[code]) {
+        case 'i': // check items
+        var item = Game.map.getItem(this.x,this.y);
+        if(item){
+          if(item.type=='weapon'){
+            Game.map.dropItem(this.items.weapon,this.x,this.y);
+            this.items.weapon=item;
+            this.atk=item.value;
+            Game.log.add('Picked up ' + item.name + '.');
+          }else if(item.type=='armor'){
+            Game.map.dropItem(this.items.armor,this.x,this.y);
+            this.items.armor=item;
+            this.def=item.value;
+            Game.log.add('Picked up ' + item.name + '.');
+          }
+        }else{
+          console.log('no item');
         }
-      }else{
-        console.log('no item');
+        break;
+        case '.': // do nothing
+        if (e.shiftKey) { // '>', go down stairs
+        Game.advanceLevel();
+      } else { // '.', do nothing
+
       }
-    }else{
+      break;
+      case 0: case 1: case 2: case 3: case 4:
+      case 5: case 6: case 7: case 8: case 9:
       var diff = ROT.DIRS[8][keyMap[code]];
       var newX = this.x + diff[0];
       var newY = this.y + diff[1];
-    }
-
-    var newKey = newX + ',' + newY;
-    var entity = Game.map.getEntity(newX, newY);
-    if (!Game.map.isPassable(newX, newY)) {
-      return;
-    } else if (entity) {
-      Game.log.add(`You dealt ${-1*entity.damage(this.atk)} damage to ${entity.name}.`);
-    } else {
-      this.moveTo(newX,newY);
+      var newKey = newX + ',' + newY;
+      var entity = Game.map.getEntity(newX, newY);
+      if (!Game.map.isPassable(newX, newY)) {
+        return;
+      } else if (entity) {
+        Game.log.add(`You dealt ${-1*entity.damage(this.atk)} damage to ${entity.name}.`);
+      } else {
+        this.moveTo(newX,newY);
+      }
+      break;
+      default:
+      console.error(`Keymap includes ${code} = ${keyMap[code]} but we don't handle it`);
     }
     window.removeEventListener('keydown', this);
     Game.engine.unlock();
   }
-
 }

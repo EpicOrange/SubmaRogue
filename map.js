@@ -1,7 +1,7 @@
 
 const enemy_fish = {
-  char: "α",
-  color: "orange",
+  char: 'α',
+  color: 'orange',
   hp: 10,
   atk: 1,
   def: 1,
@@ -9,6 +9,8 @@ const enemy_fish = {
   pathfinder: ROT.Path.AStar,
   name: 'fish'
 };
+
+const passableTiles = '.%>';
 
 class Map {
   constructor(width, height) {
@@ -21,10 +23,10 @@ class Map {
     this.items = {};
   }
   generateTiles() {
+    // '.' tiles
     var cellMap = new ROT.Map.Cellular(this.width,this.height,{
       connected:true
     });
-
     cellMap.randomize(0.5);
     var mapCallback = function(x,y,value){
       if(!value)return;
@@ -34,6 +36,11 @@ class Map {
     };
     for(var i=0; i<10;i++)cellMap.create();
     cellMap.connect(mapCallback.bind(this),1);
+
+    // stairs
+    var index = Math.floor(ROT.RNG.getUniform() * this.freeCells.length);
+    var key = this.freeCells.splice(index, 1)[0];
+    this.map[key] = '>';
   }
   generateEntities(Game) {
     Game.player = this.createEntityAtFreeCell(Player);
@@ -45,13 +52,13 @@ class Map {
     }
   }
   getKey(x, y) { // convert x, y to key
-    return (x + "," + y);
+    return (x + ',' + y);
   }
   at(x, y) { // get map char at x, y
     return this.map[this.getKey(x, y)];
   }
   isPassable(x, y) {
-    return (this.at(x, y) == '.') || (this.at(x, y) == '%');
+    return passableTiles.includes(this.at(x, y));
   }
   drawTile(x, y) {
     const item = this.getItem(x,y);
@@ -69,7 +76,7 @@ class Map {
   }
   drawAll() {
     for (let key in this.map) {
-      let [x, y] = key.split(",").map((x) => (parseInt(x)));
+      let [x, y] = key.split(',').map((x) => (parseInt(x)));
       this.drawTile(x, y);
     }
     for (let key in this.entities) {
@@ -79,7 +86,7 @@ class Map {
   createEntityAtFreeCell(what, options){
     var index = Math.floor(ROT.RNG.getUniform() * this.freeCells.length);
     var key = this.freeCells.splice(index, 1)[0];
-    var parts = key.split(",");
+    var parts = key.split(',');
     var x = parseInt(parts[0]);
     var y = parseInt(parts[1]);
     var entity = new what(x, y, options);
@@ -109,7 +116,7 @@ class Map {
   addItem(options){
     var index = Math.floor(ROT.RNG.getUniform() * this.freeCells.length);
     var key = this.freeCells.splice(index, 1)[0];
-    var parts = key.split(",");
+    var parts = key.split(',');
     var x = parseInt(parts[0]);
     var y = parseInt(parts[1]);
     this.items[key]=new Item(x,y,options);
