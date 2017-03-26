@@ -43,7 +43,7 @@ var enemies = {
     "atk": 2,
     "def": 0,
     "speed": 120,
-    "pathfinder": "wander_until_near",
+    "pathfinder": "wander",
     "name": "fish"
   },
   "shark":{
@@ -63,7 +63,7 @@ var enemies = {
     "atk":2,
     "def":1,
     "speed":80,
-    "pathfinder":"go_straight_towards",
+    "pathfinder":"wander_until_near",
     "name":"squid"
   },
   "giantsquid":{
@@ -73,7 +73,7 @@ var enemies = {
     "atk":5,
     "def":3,
     "speed":70,
-    "pathfinder":"go_straight_towards",
+    "pathfinder":"wander_until_near",
     "name":"giantsquid"
   },
   "snake":{
@@ -83,7 +83,7 @@ var enemies = {
     "atk":5,
     "def":0,
     "speed":150,
-    "pathfinder":"go_straight_towards",
+    "pathfinder":"wander_until_near",
     "name":"snake"
   },
   "crab":{
@@ -110,20 +110,40 @@ var enemies = {
     "char":"♆",
     "color":"cyan",
     "hp":15,
-    "atk":7,
+    "atk":8,
     "def":3,
     "speed":120,
-    "pathfinder":"go_straight_towards",
+    "pathfinder":"wander_until_near",
     "name":"atlantean warrior",
   },
   "atlaneanguard":{
     "char":"⛢",
     "color":"cyan",
     "hp":20,
-    "atk":5,
+    "atk":6,
     "def":5,
     "speed":80,
-    "pathfinder":"go_straight_towards",
+    "pathfinder":"wander_until_near",
     "name":"atlantean guard",
   },
+  "atlaneandestroyer":{
+    "char":"♅",
+    "color":"cyan",
+    "hp":20,
+    "atk":10,
+    "def":5,
+    "speed":100,
+    "pathfinder":"wander_until_near",
+    "name":"atlantean destroyer",
+  },
+  "atlanteanchaser":{
+    "char":"☿",
+    "color":"cyan",
+    "hp":10,
+    "atk":10,
+    "def":0,
+    "speed":250,
+    "pathfinder":"go_straight_towards",
+    "name":"atlantean chaser",
+  }
 };

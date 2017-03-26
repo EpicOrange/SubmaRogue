@@ -16,7 +16,7 @@ var items = {
     value:4
   },
   harpoon:{
-    color:'silver',
+    color:'white',
     char:'↟',
     name:'harpoon',
     type:'weapon',
