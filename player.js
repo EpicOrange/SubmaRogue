@@ -1,11 +1,11 @@
 class Player extends Entity {
   constructor(x, y){
     super(x, y, {
-        char: '@',
-        color: 'yellow',
-        hp: 10,
-        speed: 100,
-      });
+      char: '@',
+      color: 'yellow',
+      hp: 10,
+      speed: 100,
+    });
     this.items = {};
   }
 
@@ -18,8 +18,9 @@ class Player extends Entity {
   handleEvent(e){
     var keyMap = {};
 
+    //hjklyubn   arrow keys   numpad
     keyMap[75] = keyMap[38] = keyMap[56] = 0; // top
-    keyMap[73] =              keyMap[57] = 1; // top right
+    keyMap[85] =              keyMap[57] = 1; // top right
     keyMap[76] = keyMap[39] = keyMap[54] = 2; // right
     keyMap[78] =              keyMap[51] = 3; // bottom right
     keyMap[74] = keyMap[40] = keyMap[50] = 4; // bottom
@@ -37,8 +38,14 @@ class Player extends Entity {
     var newY = this.y + diff[1];
 
     var newKey = newX + ',' + newY;
-    if(!Game.map.isPassable(newX,newY))return;
-    this.moveTo(newX,newY);
+    var entity = Game.map.getEntity(newX, newY);
+    if (!Game.map.isPassable(newX, newY)) {
+      return;
+    } else if (entity) {
+      entity.damage(0); // TODO damage?
+    } else {
+      this.moveTo(newX,newY);
+    }
     window.removeEventListener('keydown', this);
     Game.engine.unlock();
   }

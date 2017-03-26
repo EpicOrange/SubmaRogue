@@ -17,10 +17,10 @@ class Entity {
     Game.map.drawEntity(this);
   }
   moveTo(x, y) {
-    Game.map.drawTile(this.x, this.y); // draw map tile
-    this.x = x;
-    this.y = y;
-    this.draw();
+    if (Game.map.getEntity(x, y)) {
+      return;
+    }
+    Game.map.moveEntity(this.x, this.y, x, y);
   }
   getSpeed() {
     return this.speed;
