@@ -4,7 +4,7 @@ class Player extends Entity {
       {
         char: '@',
         color: 'yellow',
-        hp: 50,
+        hp: 60,
         speed: 100,
         atk:3,
         def:1

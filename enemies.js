@@ -78,7 +78,7 @@ var enemies = {
   },
   "snake":{
     "char":"S",
-    "color":"yellow",
+    "color":"orange",
     "hp":4,
     "atk":5,
     "def":0,
@@ -97,8 +97,8 @@ var enemies = {
     "name":"crab"
   },
   "giantcrab":{
-    "char":"c",
-    "color":"orange",
+    "char":"C",
+    "color":"brown",
     "hp":15,
     "atk":7,
     "def":4,
@@ -106,7 +106,7 @@ var enemies = {
     "pathfinder":"wander_until_near",
     "name":"giant crab"
   },
-  "atlaneanwarrior":{
+  "atlanteanwarrior":{
     "char":"♆",
     "color":"cyan",
     "hp":15,
@@ -116,7 +116,7 @@ var enemies = {
     "pathfinder":"wander_until_near",
     "name":"atlantean warrior",
   },
-  "atlaneanguard":{
+  "atlanteanguard":{
     "char":"⛢",
     "color":"cyan",
     "hp":20,
@@ -126,7 +126,7 @@ var enemies = {
     "pathfinder":"wander_until_near",
     "name":"atlantean guard",
   },
-  "atlaneandestroyer":{
+  "atlanteandestroyer":{
     "char":"♅",
     "color":"cyan",
     "hp":20,
