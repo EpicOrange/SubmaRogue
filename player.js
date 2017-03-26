@@ -78,7 +78,7 @@ class Player extends Entity {
       keyMap[72] = keyMap[37] = keyMap[52] = 6; // left
       keyMap[89] =              keyMap[55] = 7; // top left
       keyMap[190] = keyMap[32] = keyMap[53] = '.'; // wait
-      keyMap[71] = keyMap[188] = keymap[48] = 'g'; // pickup
+      keyMap[71] = keyMap[188] = keyMap[48] = 'g'; // pickup
       if (e.shiftKey) {
         if (Game.map.at(Game.player.x, Game.player.y) == "<") {
           keyMap[188] = '<';
