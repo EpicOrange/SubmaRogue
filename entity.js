@@ -7,6 +7,8 @@ class Entity {
     this.color = options.color;
     this.hp = options.hp;
     this.speed = options.speed;
+    this.atk = options.atk;
+    this.def = options.def;
     this.draw();
   }
   damage(dmg) {
@@ -26,4 +28,3 @@ class Entity {
     return this.speed;
   }
 }
-

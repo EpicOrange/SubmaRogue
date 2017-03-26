@@ -16,6 +16,7 @@ class Map {
     this.entities = {}; //two entities cannot have the same position
     this.items = {}; //items can have the same position, so they can stack on top of each other
     this.freeCells = [];
+    this.items = {};
   }
   generateTiles() {
     var cellMap = new ROT.Map.Cellular(this.width,this.height,{
@@ -51,6 +52,10 @@ class Map {
     return (this.at(x, y) == '.');
   }
   drawTile(x, y) {
+    if(this.getItem(x,y)){
+      this.getItem(x,y).draw();
+      return;
+    }
     Game.display.draw(x, y, this.at(x, y));
   }
   drawEntity(entity){
@@ -94,5 +99,29 @@ class Map {
     this.entities[oldKey] = null;
     this.drawTile(oldX, oldY); // draw map tile
     this.drawEntity(entity);
+  }
+  addItem(options){
+    var index = Math.floor(ROT.RNG.getUniform() * this.freeCells.length);
+    var key = this.freeCells.splice(index, 1)[0];
+    var parts = key.split(",");
+    var x = parseInt(parts[0]);
+    var y = parseInt(parts[1]);
+    this.items[key]=new Item(x,y,options);
+    this.drawTile(x,y);
+  }
+  dropItem(item,x,y){
+    var key = this.getKey(x,y);
+    item.x=x;
+    item.y=y;
+    this.items[key]=item;
+    this.drawTile(x,y);
+  }
+  getItem(x,y){
+    var key = this.getKey(x,y);
+    return this.items[key];
+  }
+  removeItem(x,y){
+    var key = this.getKey(x,y);
+    delete this.items[key];
   }
 }
