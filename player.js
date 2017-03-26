@@ -96,8 +96,8 @@ class Player extends Entity {
       break;
     case '.': // wait and do nothing
       break;
-    case 0: case 1: case 2: case 3: case 4:
-    case 5: case 6: case 7: case 8: case 9:
+    case 0: case 1: case 2: case 3:
+    case 4: case 5: case 6: case 7:
       var diff = ROT.DIRS[8][keyMap[code]];
       var newX = this.x + diff[0];
       var newY = this.y + diff[1];

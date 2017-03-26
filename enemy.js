@@ -9,19 +9,17 @@ class Enemy extends Entity {
     Game.map.killEntity(this);
   }
   act() {
-    var playerX = Game.player.x;
-    var playerY = Game.player.y;
-    var isPassable = Game.map.isPassable.bind(Game.map);
-    var path = [];
-    var pathfinder = new this.pathfinder(playerX, playerY, isPassable, {topology: 8});
-
-    pathfinder.compute(this.x, this.y, (x, y) => {path.push([x, y]);});
-    if (path.length == 0) { // no path
+    var path = pathfinders[this.pathfinder](this);
+    if (path.length == 0) { // no path found
       // do nothing i guess
-    } else if (path.length <= 2) { // path contains only the fish and the player's position
+      console.log(`Enemy ${this.name} can't find path`);
+      return;
+    }
+    var nextPos = path[0];
+    if ((nextPos[0] == Game.player.x) && (nextPos[1] == Game.player.y)) {
       Game.player.damage(this.atk);
     } else {
-      this.moveTo(...path[1]);
+      this.moveTo(...nextPos);
     }
   }
 }
