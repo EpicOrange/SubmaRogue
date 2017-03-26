@@ -83,9 +83,8 @@ var Game = {
       this.switchToMap(this.level - 1, false);
       this.log.add("You ascend the stairs.");
     } else {
-      this.switchToMap(0, false);
       if (this.player.hasTreasure) {
-        this.winGame();
+        this.switchToMap(0, false);
       } else {
         this.log.add("The abyss stares into you. You find that you cannot leave.");
       }
@@ -111,6 +110,10 @@ var Game = {
     }
   },
   winGame() {
-    
+    this.engine.lock();
+    this.log.add("As you kill the last, a sense of dread overcomes you.");
+    this.log.add("You have acquired immense wealth and power, but");
+    this.log.add("...is this how you will live out the rest of your days?");
+    this.log.add("== The end ==");
   },
 };

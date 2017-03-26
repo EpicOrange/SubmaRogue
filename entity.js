@@ -23,6 +23,9 @@ class Entity {
       this.die();
       if (isEnemy) {
         Game.log.add(`You kill ${this.name}.`);
+        if (Game.level == 0 && Object.keys(Game.map.entities).length == 1) { // only player is left in the ending
+          Game.winGame();
+        }
       }
     } else {
       if (isEnemy) {

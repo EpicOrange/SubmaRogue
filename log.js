@@ -101,6 +101,9 @@ class Log {
     case 0:
       this.clear();
       this.add(`You crawl out of the watery labyrinth with spear in hand.`);
+      this.add(`The people shriek as you emerge from the water.`);
+      this.add(`'Cthulhu! Cthulhu!'.`);
+      this.add(`You must destroy them. They must not know.`);
       break;
     }
     // this is the char limit
