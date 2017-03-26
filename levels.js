@@ -158,20 +158,23 @@ var levels = [
       for(let i=0;i<3;i++){
         map.addItem('oxygen50');
       }
-      for(let i=0;i<1;i++){
+      for(let i=0;i<2;i++){
         map.addItem('oxygen100');
       }
     },
     lightRadius: 30,
   },
-  { // level 6
-    generateTiles: dungeon(),
+  { // level 5
+    generateTiles: cave(0.45),
     generateEntities(map) {
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < 1; i++) {
         map.createEntityAtFreeCell(Enemy, enemies.giantsquid);
       }
-      for (let i = 0; i < 8; i++) {
-        map.createEntityAtFreeCell(Enemy, enemies.snake);
+      for (let i = 0; i < 1; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.giantcrab);
+      }
+      for (let i = 0; i < 5; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.crab);
       }
       for(let i=0;i<3;i++){
         map.addItem('oxygen50');
@@ -181,5 +184,26 @@ var levels = [
       }
     },
     lightRadius: 27,
+  },
+  { // level 6
+    generateTiles: dungeon(),
+    generateEntities(map) {
+      for (let i = 0; i < 2; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.giantsquid);
+      }
+      for (let i = 0; i < 8; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.crab);
+      }
+      for (let i = 0; i < 2; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.giantcrab);
+      }
+      for(let i=0;i<3;i++){
+        map.addItem('oxygen50');
+      }
+      for(let i=0;i<1;i++){
+        map.addItem('oxygen100');
+      }
+    },
+    lightRadius: 24,
   }
 ];

@@ -88,5 +88,26 @@ var enemies = {
     "speed":150,
     "pathfinder":"go_straight_towards",
     "name":"snake"
-  }
+  },
+  "crab":{
+    "char":"c",
+    "color":"orange",
+    "hp":10,
+    "atk":4,
+    "def":4,
+    "speed":60,
+    "pathfinder":"wander_until_near",
+    "name":"crab"
+  },
+  "giantcrab":{
+    "char":"c",
+    "color":"orange",
+    "hp":15,
+    "atk":7,
+    "def":4,
+    "speed":40,
+    "pathfinder":"wander_until_near",
+    "name":"giant crab"
+  },
+
 };
