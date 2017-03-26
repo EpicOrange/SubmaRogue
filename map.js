@@ -25,10 +25,29 @@ class Map {
     this.upStairsKey = null;
     this.downStairsKey = null;
   }
+  
+  // util functions
   pullFreeCellKey() {
     var index = Math.floor(ROT.RNG.getUniform() * this.freeCells.length);
     return this.freeCells.splice(index, 1)[0];
   }
+  getKey(x, y) { // convert x, y to key
+    return (x + ',' + y);
+  }
+  getPos(key) { // convert key to x, y
+    return key.split(',').map((x) => (parseInt(x)));
+  }
+  at(x, y) { // get map char at x, y
+    return this.map[this.getKey(x, y)];
+  }
+  isPassable(x, y) {
+    return passableTiles.includes(this.at(x, y));
+  }
+  getEntity(x, y) {
+    return this.entities[this.getKey(x, y)];
+  }
+
+  // generation functions
   generateStairs() {
     this.upStairsKey = this.pullFreeCellKey();
     this.downStairsKey = this.pullFreeCellKey();
@@ -61,28 +80,8 @@ class Map {
       }
     }
   }
-  revealMapAroundPlayer() {
-    var fov = new ROT.FOV.RecursiveShadowcasting(this.isPassable.bind(this));
-    this.visibleTiles = {};
-    fov.compute(Game.player.x, Game.player.y, Game.player.lightRange, (x, y) => {
-      const key = this.getKey(x, y);
-      this.visibleTiles[key] = true;
-      this.revealedTiles[key] = true;
-      this.drawTile(x, y);
-    });
-  }
-  getKey(x, y) { // convert x, y to key
-    return (x + ',' + y);
-  }
-  getPos(key) { // convert key to x, y
-    return key.split(',').map((x) => (parseInt(x)));
-  }
-  at(x, y) { // get map char at x, y
-    return this.map[this.getKey(x, y)];
-  }
-  isPassable(x, y) {
-    return passableTiles.includes(this.at(x, y));
-  }
+
+  // draw functions
   drawTile(x, y) {
     const key = this.getKey(x, y);
     if (key in this.revealedTiles) {
@@ -115,6 +114,8 @@ class Map {
       this.drawTile(x, y);
     }
   }
+
+  // functions to change state
   createEntityAtFreeCell(what, options){
     var key = this.pullFreeCellKey();
     var [x, y] = this.getPos(key);
@@ -123,8 +124,15 @@ class Map {
     this.drawObject(entity);
     return entity;
   }
-  getEntity(x, y) {
-    return this.entities[this.getKey(x, y)];
+  revealMapAroundPlayer() {
+    var fov = new ROT.FOV.RecursiveShadowcasting(this.isPassable.bind(this));
+    this.visibleTiles = {};
+    fov.compute(Game.player.x, Game.player.y, Game.player.lightRange, (x, y) => {
+      const key = this.getKey(x, y);
+      this.visibleTiles[key] = true;
+      this.revealedTiles[key] = true;
+      this.drawTile(x, y);
+    });
   }
   moveEntity(oldX, oldY, newX, newY) {
     const oldKey = this.getKey(oldX, oldY);
