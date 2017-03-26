@@ -51,7 +51,22 @@ class Log {
       break;
     case 2:
       this.clear();
-      this.add(""); // TODO
+      this.add("The water here seems denser. Must be the higher pressure.");
+      break;
+    case 3:
+      this.clear();
+      this.add("These fish all seem to be out to kill you.");
+      this.add("That's probably why no one's ever found the treasure alive.");
+      break;
+    case 4:
+      this.clear();
+      this.add("More sharks appear as you dive.");
+      this.add("You are certain that you are approaching Atlantis.");
+      break;
+    case 5:
+      this.clear();
+      this.add("The sunlight from above is fading away as you dive deeper.");
+      break;
     }
   }
 }

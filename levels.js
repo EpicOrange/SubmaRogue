@@ -1,26 +1,4 @@
 
-class MapGenerator {
-  static cave(map) {
-    // '.' tiles
-    var cellMap = new ROT.Map.Cellular(map.width,map.height,{
-      connected:true
-    });
-    cellMap.randomize(0.5);
-    var mapCallback = function(x,y,value){
-      var key = x+','+y;
-      if (value == 0) {
-        map.map[key]='#';
-      } else {
-        map.map[key]='.';
-        map.freeCells.push(key);
-      }
-    };
-    for(var i=0; i<10;i++)cellMap.create();
-    cellMap.connect(mapCallback.bind(map),1);
-    map.generateStairs(); // stairs
-  }
-}
-
 var cave = function(randomness){
   return function(map){
     // '.' tiles

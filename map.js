@@ -1,5 +1,9 @@
 const passableTiles = '.%<>';
 
+function chebyshevDistance(pos1, pos2) {
+  return Math.max(Math.abs(pos2.y - pos1.y), Math.abs(pos2.x - pos1.x));
+}
+
 class Map {
   constructor(width, height) {
     this.width = width;
@@ -43,6 +47,14 @@ class Map {
     this.downStairsKey = this.pullFreeCellKey();
     this.map[this.upStairsKey] = '<';
     this.map[this.downStairsKey] = '>';
+    // remove free cells from around upStairsKey
+    for (let key in this.freeCells) {
+      let [x1, y1] = this.getPos(this.upStairsKey);
+      let [x2, y2] = this.getPos(key);
+      if (chebyshevDistance({x: x1, y: y1}, {x: x2, y: y2}) < 15) {
+        delete this.freeCells[key];
+      }
+    }
   }
   placePlayerEntity(player, key) {
     this.entities[key] = player;
