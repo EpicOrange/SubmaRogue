@@ -29,6 +29,20 @@ var items = {
     type:'weapon',
     value:7
   },
+  'awl pike':{
+    color:'red',
+    char:'↑',
+    name:'awl pike',
+    type:'weapon',
+    value:10
+  },
+  'gungnir':{
+    color:'magenta',
+    char:'↑',
+    name:'gungnir',
+    type:'weapon',
+    value:20
+  },
   // charms
   'rock': {
     color:'gray',
@@ -104,9 +118,16 @@ var items = {
   oxygen300: {
     color:'cyan',
     char:'0',
-    name:'200 units of oxygen',
+    name:'300 units of oxygen',
     type:'oxygen',
-    value: 200
+    value: 300
+  },
+  oxygen500: {
+    color:'cyan',
+    char:'O',
+    name:'500 units of oxygen',
+    type:'oxygen',
+    value: 500
   },
 };
 
