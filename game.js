@@ -2,8 +2,8 @@
 var width = 60;
 var height = 45;
 var Game = {
-  log: new Log(width),
-  status: new Status(width),
+  log: null,
+  status: null,
   player: null,
   scheduler: null,
   engine: null,
@@ -16,15 +16,23 @@ var Game = {
       height: height,
       forceSquareRatio: true
     });
+    this.log = new Log(width);
+    this.status = new Status(width);
     document.body.appendChild(this.log.display.getContainer());
     document.body.appendChild(this.display.getContainer());
     document.body.appendChild(this.status.display.getContainer());
-
+    this.restart();
+  },
+  restart() {
+    this.display.clear();
+    this.log.clear();
+    this.status.clear();
     this.player = new Player();
 
     this.scheduler = new ROT.Scheduler.Speed();
     this.engine = new ROT.Engine(this.scheduler);
 
+    this.maps = [];
     this.switchToMap(1, true);
 
     this.engine.start();

@@ -17,9 +17,9 @@ class Status {
     }
   }
   getHpColor() {
-    if (Game.player.hp >= 10) {
+    if (Game.player.hp >= 25) {
       return 'green';
-    } else if (Game.player.hp >= 6) {
+    } else if (Game.player.hp >= 15) {
       return 'yellow';
     } else if (Game.player.hp >= 1) {
       return 'red';
@@ -35,5 +35,8 @@ class Status {
     this.display.drawText(0, 0, name);
     this.display.drawText(name.length + 1, 0, hp);
     this.display.drawText(name.length + 10, 0,"Oxygen: "+Game.player.oxygen);
+  }
+  clear() {
+    this.messages = [];
   }
 }

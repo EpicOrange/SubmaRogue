@@ -26,4 +26,7 @@ class Log {
     }
     this.update();
   }
+  clear() {
+    this.messages = [];
+  }
 }

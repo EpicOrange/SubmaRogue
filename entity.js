@@ -11,11 +11,14 @@ class Entity {
     this.def = options.def;
     this.name = options.name;
   }
+  isDead() {
+    return (this.hp <= 0);
+  }
   damage(dmg) {
     dmg = Math.min(0, -dmg + this.def);
     this.hp += dmg;
     console.log(this.char + " lost " + dmg);
-    if (this.hp <= 0) {
+    if (this.isDead()) {
       this.die();
     }
     return dmg;

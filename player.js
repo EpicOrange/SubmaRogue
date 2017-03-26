@@ -21,10 +21,8 @@ class Player extends Entity {
     Game.log.add(`you took ${-1*dmg} damage.`);
   }
   die() {
-    Game.log.add(`You have died.`);
+    Game.log.add(`You have died. Press R to restart.`);
     console.log("kill player");
-    // TODO kill player
-    // Game.engine.lock();
   }
 
   act(){
@@ -43,25 +41,33 @@ class Player extends Entity {
   handleEvent(e){
     var keyMap = {};
 
-    //hjklyubn   arrow keys   numpad
-    keyMap[75] = keyMap[38] = keyMap[56] = 0; // top
-    keyMap[85] =              keyMap[57] = 1; // top right
-    keyMap[76] = keyMap[39] = keyMap[54] = 2; // right
-    keyMap[78] =              keyMap[51] = 3; // bottom right
-    keyMap[74] = keyMap[40] = keyMap[50] = 4; // bottom
-    keyMap[66] =              keyMap[49] = 5; // bottom left
-    keyMap[72] = keyMap[37] = keyMap[52] = 6; // left
-    keyMap[89] =              keyMap[55] = 7; // top left
-    keyMap[190] = keyMap[32] = keyMap[53] = '.'; // wait
-    keyMap[71] = keyMap[188] = 'g';
-    if (e.shiftKey) {
-      keyMap[188] = '<';
-      keyMap[190] = '>';
+    if (this.isDead()) {
+      keyMap[82] = 'r';
+    } else {
+      //hjklyubn   arrow keys   numpad
+      keyMap[75] = keyMap[38] = keyMap[56] = 0; // top
+      keyMap[85] =              keyMap[57] = 1; // top right
+      keyMap[76] = keyMap[39] = keyMap[54] = 2; // right
+      keyMap[78] =              keyMap[51] = 3; // bottom right
+      keyMap[74] = keyMap[40] = keyMap[50] = 4; // bottom
+      keyMap[66] =              keyMap[49] = 5; // bottom left
+      keyMap[72] = keyMap[37] = keyMap[52] = 6; // left
+      keyMap[89] =              keyMap[55] = 7; // top left
+      keyMap[190] = keyMap[32] = keyMap[53] = '.'; // wait
+      keyMap[71] = keyMap[188] = 'g';
+      if (e.shiftKey) {
+        keyMap[188] = '<';
+        keyMap[190] = '>';
+      }
     }
 
     var code = e.keyCode;
     e.preventDefault(); // prevent e.g. arrow keys from scrolling the page
     switch(keyMap[code]) {
+    case 'r': // restart
+      window.removeEventListener('keydown', this);
+      Game.restart();
+      break;
     case 'g': // get items
       var item = Game.map.getItem(this.x,this.y);
       if(item){
@@ -119,11 +125,13 @@ class Player extends Entity {
       }
       break;
     default:
-      if (code in keyMap) {
+      if (this.isDead()) {
+        Game.log.add(`You have died. Press R to restart.`);
+      } else if (code in keyMap) {
         console.error(`Keymap includes ${code} = ${keyMap[code]} but we don't handle it`);
       }
     }
-    if (code in keyMap) {
+    if (code in keyMap && !this.isDead()) {
       window.removeEventListener('keydown', this);
       Game.engine.unlock();
     }
