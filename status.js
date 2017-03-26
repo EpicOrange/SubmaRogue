@@ -35,7 +35,7 @@ class Status {
     this.display.drawText(0, 0, name);
     this.display.drawText(name.length + 1, 0, hp);
     this.display.drawText(name.length + 10, 0,"OXYGEN: "+Game.player.oxygen);
-    this.display.drawText(name.length + 22, 0,"Level: "+Game.level);
+    this.display.drawText(name.length + 24, 0,"Level: "+Game.level);
     const stats = `Weapon: ${Game.player.items.weapon.name} (${Game.player.atk} ATK) | Charm: ${Game.player.items.armor.name} (${Game.player.def} DEF)`;
     this.display.drawText(0, 1, stats);
   }
