@@ -72,10 +72,10 @@ var enemies = {
   "giantsquid":{
     "char":"A",
     "color":"#7D290F",
-    "hp":10,
+    "hp":8,
     "atk":5,
     "def":3,
-    "speed":90,
+    "speed":70,
     "pathfinder":"go_straight_towards",
     "name":"giantsquid"
   },

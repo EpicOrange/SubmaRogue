@@ -16,7 +16,7 @@ var items = {
   },
   spear:{
     color:'white',
-    char:'↑ ',
+    char:'↑',
     name:'spear',
     type:'weapon',
     value:4
@@ -28,6 +28,13 @@ var items = {
     type:'weapon',
     value:5
   },
+  lance:{
+    color:'red',
+    char:'↑',
+    name:'lance',
+    type:'weapon',
+    value:7
+  },
   test: {
     color:'green',
     char:'X',
@@ -37,7 +44,7 @@ var items = {
   },
   chainvest:{
     color:'silver',
-    char:'#',
+    char:'[',
     name:'chain vest',
     type:'armor',
     value:2
