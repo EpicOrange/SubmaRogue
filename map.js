@@ -19,7 +19,7 @@ class Map {
     this.downStairsKey = null;
     this.lightRadius = 900;
   }
-  
+
   // util functions
   pullFreeCellKey() {
     var index = Math.floor(ROT.RNG.getUniform() * this.freeCells.length);
