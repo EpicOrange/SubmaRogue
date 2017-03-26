@@ -22,7 +22,7 @@ var Game = {
     this.map.generateEntities(this);
     this.map.drawAll();
     this.map.addItem({color:'green',char:'X',name:'test',type:'weapon',value:10});
-
+    this.map.addItem({color:'gray',char:'#',name:'armor i guess',type:'armor',value:10});
     this.engine = new ROT.Engine(this.scheduler);
     this.engine.start();
   },

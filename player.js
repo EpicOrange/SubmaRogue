@@ -10,7 +10,13 @@ class Player extends Entity {
         def:0
       });
     this.items = {
-      armor:'none',
+      armor:new Item(0,0,{
+        color:'blue',
+        char:'V',
+        name:'suit',
+        type:'armor',
+        value:1
+      }),
       weapon:new Item(0,0,{
         color:'brown',
         char:'/',
@@ -48,7 +54,7 @@ class Player extends Entity {
     e.preventDefault(); // prevent e.g. arrow keys from scrolling the page
 
     if(!(code in keyMap))return;
-
+    //get item
     if(keyMap[code]=='i'){
       var item = Game.map.getItem(this.x,this.y);
       if(item){
@@ -57,6 +63,11 @@ class Player extends Entity {
           this.items.weapon=item;
           this.atk=item.value;
           console.log('picked up ' +item.name);
+        }else if(item.type=='armor'){
+          Game.map.dropItem(this.items.armor,this.x,this.y);
+          this.items.armor=item;
+          this.def=item.value;
+          console.log('picked up '+item.name);
         }
       }else{
         console.log('no item');
