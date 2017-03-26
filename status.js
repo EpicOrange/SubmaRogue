@@ -17,7 +17,9 @@ class Status {
     }
   }
   getHpColor() {
-    if (Game.player.hp >= 25) {
+    if (Game.player.hp >= 999) {
+      return 'orange';
+    } else if (Game.player.hp >= 25) {
       return 'green';
     } else if (Game.player.hp >= 15) {
       return 'yellow';

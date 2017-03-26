@@ -129,6 +129,14 @@ var items = {
     type:'oxygen',
     value: 500
   },
+  // treasure
+  'shining trapezohedron': {
+    color:'gold',
+    char:'⏣',
+    name:'shining trapezohedron',
+    type:'treaure',
+    value: 500
+  },
 };
 
 // test: {
