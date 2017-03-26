@@ -18,7 +18,7 @@ class Player extends Entity {
   }
   damage(dmg){
     dmg = super.damage(dmg);
-    Game.log.add(`you took ${-1*dmg} damage.`);
+    Game.log.add(`You take ${-1*dmg} damage.`);
   }
   die() {
     Game.log.add(`You have died. Press R to restart.`);
@@ -38,6 +38,23 @@ class Player extends Entity {
     Game.log.clearHighlight();
     /* wait for user input; do stuff when user hits a key */
     window.addEventListener('keydown', this);
+  }
+  describePosition() {
+    // check if there's an item at our position now
+    const item = Game.map.getItem(this.x, this.y);
+    if (item) {
+      var aan = ('aeiou').includes(item.name[0]) ? 'an' : 'a';
+      Game.log.add(`You see here ${aan} ${item.name}.`);
+    }
+    // check if there's down stairs or a corpse
+    const tile = Game.map.at(this.x, this.y);
+    if (tile == '<') {
+      Game.log.add(`You see here some stairs up. Press < to ascend.`);
+    } else if (tile == '>') {
+      Game.log.add(`You see here some stairs down. Press > to descend.`);
+    } else if (tile == '%') {
+      Game.log.add(`You see here a floating corpse. Useless.`);
+    }
   }
 
   handleEvent(e){
@@ -121,9 +138,10 @@ class Player extends Entity {
       if (!Game.map.isPassable(newX, newY)) {
         return;
       } else if (entity) {
-        Game.log.add(`You dealt ${-1*entity.damage(this.atk)} damage to ${entity.name}.`);
+        entity.damage(this.atk);
       } else {
         this.moveTo(newX,newY);
+        this.describePosition();
       }
       break;
     default:
