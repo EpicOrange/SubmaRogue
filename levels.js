@@ -186,8 +186,8 @@ var levels = [
       for (let i = 0; i < 1; i++) {
         map.createEntityAtFreeCell(Enemy, enemies.shark);
       }
-      for (let i = 0; i < 5; i++) {
-        map.createEntityAtFreeCell(Enemy, enemies.squid);
+      for (let i = 0; i < 4; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.crab);
       }
       for(let i=0;i<3;i++){
         map.addItem('oxygen50');
@@ -195,6 +195,7 @@ var levels = [
       for(let i=0;i<2;i++){
         map.addItem('oxygen100');
       }
+      map.addItem('defense crystal');
     },
     lightRadius: 30,
   },
@@ -223,7 +224,7 @@ var levels = [
     generateTiles: dungeon(),
     generateEntities(map) {
       for (let i = 0; i < 2; i++) {
-        map.createEntityAtFreeCell(Enemy, enemies.giantsquid);
+        map.createEntityAtFreeCell(Enemy, enemies.atlanteanwarrior);
       }
       for (let i = 0; i < 8; i++) {
         map.createEntityAtFreeCell(Enemy, enemies.crab);
@@ -237,7 +238,81 @@ var levels = [
       for(let i=0;i<1;i++){
         map.addItem('oxygen100');
       }
+      map.addItem('charm of warding');
     },
     lightRadius: 24,
+  },
+  { // level 8
+    generateTiles: dungeon(),
+    generateEntities(map) {
+      for (let i = 0; i < 2; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.atlanteanwarrior);
+      }
+      for (let i = 0; i < 2; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.atlanteanguard);
+      }
+      for (let i = 0; i < 2; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.giantcrab);
+      }
+      for(let i=0;i<3;i++){
+        map.addItem('oxygen50');
+      }
+      for(let i=0;i<2;i++){
+        map.addItem('oxygen100');
+      }
+      map.addItem('oxygen200');
+        map.addItem('awl pike');
+    },
+    lightRadius: 21,
+  },
+  { // level 9
+    generateTiles: dungeon(),
+    generateEntities(map) {
+      for (let i = 0; i < 2; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.atlanteanwarrior);
+      }
+      for (let i = 0; i < 2; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.atlanteanguard);
+      }
+      for (let i = 0; i < 1; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.atlanteandestroyer);
+      }
+      for (let i = 0; i < 2; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.atlanteanchaser);
+      }
+      for(let i=0;i<2;i++){
+        map.addItem('oxygen50');
+      }
+      for(let i=0;i<1;i++){
+        map.addItem('oxygen100');
+      }
+      map.addItem('oxygen300');
+      map.addItem('orb of protection');
+    },
+    lightRadius: 18,
+  },
+  { // level 10
+    generateTiles: maze(),
+    generateEntities(map) {
+      for (let i = 0; i < 2; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.atlanteanwarrior);
+      }
+      for (let i = 0; i < 2; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.atlanteanguard);
+      }
+      for (let i = 0; i < 2; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.atlanteandestroyer);
+      }
+      for (let i = 0; i < 3; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.atlanteanchaser);
+      }
+      for(let i=0;i<5;i++){
+        map.addItem('oxygen50');
+      }
+      for(let i=0;i<4;i++){
+        map.addItem('oxygen100');
+      }
+    },
+    lightRadius: 15,
   }
 ];
