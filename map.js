@@ -1,9 +1,10 @@
 
 const enemy_fish = {
-  char: "F",
+  char: "α",
   color: "orange",
   hp: 10,
-  damage: 1,
+  atk: 1,
+  def: 1,
   speed: 200,
   pathfinder: ROT.Path.AStar
 };
@@ -52,13 +53,17 @@ class Map {
     return (this.at(x, y) == '.');
   }
   drawTile(x, y) {
-    if(this.getItem(x,y)){
-      this.getItem(x,y).draw();
-      return;
+    const item = this.getItem(x,y);
+    const entity = this.getEntity(x,y);
+    if (entity) {
+      this.drawObject(entity);
+    } else if (item) {
+      this.drawObject(item);
+    } else {
+      Game.display.draw(x, y, this.at(x, y));
     }
-    Game.display.draw(x, y, this.at(x, y));
   }
-  drawEntity(entity){
+  drawObject(entity){
     Game.display.draw(entity.x,entity.y,entity.char,entity.color);
   }
   drawAll() {
@@ -67,7 +72,7 @@ class Map {
       this.drawTile(x, y);
     }
     for (let key in this.entities) {
-      this.drawEntity(this.entities[key]);
+      this.drawObject(this.entities[key]);
     }
   }
   createEntityAtFreeCell(what, options){
@@ -78,7 +83,7 @@ class Map {
     var y = parseInt(parts[1]);
     var entity = new what(x, y, options);
     this.entities[key] = entity;
-    this.drawEntity(entity);
+    this.drawObject(entity);
     return entity;
   }
   getEntity(x, y) {
@@ -98,7 +103,7 @@ class Map {
     this.entities[newKey] = entity;
     this.entities[oldKey] = null;
     this.drawTile(oldX, oldY); // draw map tile
-    this.drawEntity(entity);
+    this.drawObject(entity);
   }
   addItem(options){
     var index = Math.floor(ROT.RNG.getUniform() * this.freeCells.length);

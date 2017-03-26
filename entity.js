@@ -16,7 +16,7 @@ class Entity {
     // todo check dead
   }
   draw() {
-    Game.map.drawEntity(this);
+    Game.map.drawObject(this);
   }
   moveTo(x, y) {
     if (Game.map.getEntity(x, y)) {

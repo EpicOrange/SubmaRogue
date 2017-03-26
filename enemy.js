@@ -2,7 +2,6 @@
 class Enemy extends Entity {
   constructor(x, y, options) {
     super(x, y, options);
-    this.damage = options.damage;
     this.pathfinder = options.pathfinder;
   }
   act() {
