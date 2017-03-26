@@ -1,14 +1,3 @@
-const enemy_fish = {
-  char: 'α',
-  color: 'orange',
-  hp: 10,
-  atk: 1,
-  def: 1,
-  speed: 200,
-  pathfinder: ROT.Path.AStar,
-  name: 'fish'
-};
-
 const passableTiles = '.%<>';
 
 class Map {
