@@ -14,6 +14,7 @@ class Player extends Entity {
       armor: new Item(0, 0, 'suit'),
     };
     this.oxygen = 100;
+    this.lightRange = 1000; // TODO change according to items?
   }
   damage(dmg){
     dmg = super.damage(dmg);
@@ -22,6 +23,7 @@ class Player extends Entity {
   die() {
     Game.log.add(`You have died.`);
     console.log("kill player");
+    // TODO kill player
     // Game.engine.lock();
   }
 
@@ -30,6 +32,7 @@ class Player extends Entity {
     if(this.oxygen<=0){
       Game.log.add('You have drowned.');
     }
+    Game.map.revealMapAroundPlayer();
     Game.status.update();
     Game.log.update();
     Game.engine.lock();

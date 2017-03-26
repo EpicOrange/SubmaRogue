@@ -7,10 +7,13 @@ class MapGenerator {
     });
     cellMap.randomize(0.5);
     var mapCallback = function(x,y,value){
-      if(!value)return;
       var key = x+','+y;
-      map.map[key]='.';
-      map.freeCells.push(key);
+      if (value == 0) {
+        map.map[key]='#';
+      } else {
+        map.map[key]='.';
+        map.freeCells.push(key);
+      }
     };
     for(var i=0; i<10;i++)cellMap.create();
     cellMap.connect(mapCallback.bind(map),1);
