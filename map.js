@@ -16,8 +16,10 @@ class Map {
     this.width = width;
     this.height = height;
     this.map = {};
-    this.entities = {}; //two entities cannot have the same position
-    this.items = {}; //items can have the same position, so they can stack on top of each other
+    this.visibleTiles = {};
+    this.revealedTiles = {};
+    this.entities = {};
+    this.items = {};
     this.freeCells = [];
     this.items = {};
     this.upStairsKey = null;
@@ -35,7 +37,7 @@ class Map {
   }
   placePlayerEntity(player, key) {
     this.entities[key] = player;
-    var [x, y] = this.  getPos(key);
+    var [x, y] = this.getPos(key);
     player.x = x;
     player.y = y;
     Game.addActor(player);
@@ -59,6 +61,16 @@ class Map {
       }
     }
   }
+  revealMapAroundPlayer() {
+    var fov = new ROT.FOV.RecursiveShadowcasting(this.isPassable.bind(this));
+    this.visibleTiles = {};
+    fov.compute(Game.player.x, Game.player.y, Game.player.lightRange, (x, y) => {
+      const key = this.getKey(x, y);
+      this.visibleTiles[key] = true;
+      this.revealedTiles[key] = true;
+      this.drawTile(x, y);
+    });
+  }
   getKey(x, y) { // convert x, y to key
     return (x + ',' + y);
   }
@@ -72,17 +84,29 @@ class Map {
     return passableTiles.includes(this.at(x, y));
   }
   drawTile(x, y) {
-    const item = this.getItem(x,y);
-    const entity = this.getEntity(x,y);
-    if (entity) {
-      this.drawObject(entity);
-    } else if (item) {
-      this.drawObject(item);
+    const key = this.getKey(x, y);
+    if (key in this.revealedTiles) {
+      const item = this.getItem(x,y);
+      const entity = this.getEntity(x,y);
+      if (entity) {
+        this.drawObject(entity);
+      } else if (item) {
+        this.drawObject(item);
+      } else {
+        Game.display.draw(x, y, this.at(x, y));
+      }
     } else {
-      Game.display.draw(x, y, this.at(x, y));
+      Game.display.draw(x, y, "");
     }
   }
   drawObject(entity){
+    if ("pathfinder" in entity) { // is enemy
+      // only draw if we can see it
+      const key = this.getKey(entity.x, entity.y);
+      if (!(key in this.visibleTiles)) {
+        return;
+      }
+    }
     Game.display.draw(entity.x,entity.y,entity.char,entity.color);
   }
   drawAll() {
