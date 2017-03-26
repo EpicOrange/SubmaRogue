@@ -57,8 +57,8 @@ var dungeon = function(){
     };
     diggerMap.create(mapCallback.bind(map));
     map.generateStairs();
-  }
-}
+  };
+};
 
 // all levels should have an object:
 // generateTiles(map): define map.map, map.freeCells
@@ -99,7 +99,7 @@ var levels = [
       }
       map.addItem('oxygen200');
       map.addItem('harpoon');
-      map.addItem('chainvest');
+      map.addItem('defense stone');
     },
   },
   { // level 3
@@ -119,7 +119,7 @@ var levels = [
       }
       map.addItem('oxygen200');
 
-      map.addItem('divingsuit');
+      map.addItem('defense gem');
     },
   },
   { // level 4
