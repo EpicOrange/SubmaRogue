@@ -42,6 +42,11 @@ var dungeon = function(){
 // generateTiles(map): define map.map, map.freeCells
 // generateEntities(map): create entities and items
 
+// Level 1-6 = ocean
+// Level 7-9 = Atlantis (dungeon)
+// Level 10-12 = Atlantis (maze)
+// Level 13 = Final floor, boss? get best items
+
 var levels = [
   null, // level 0, should never be referenced
   { // level 1
@@ -142,7 +147,7 @@ var levels = [
     },
     lightRadius: 30,
   },
-  { // level 5
+  { // level 6
     generateTiles: cave(0.45),
     generateEntities(map) {
       for (let i = 0; i < 1; i++) {
@@ -163,7 +168,7 @@ var levels = [
     },
     lightRadius: 27,
   },
-  { // level 6
+  { // level 7
     generateTiles: dungeon(),
     generateEntities(map) {
       for (let i = 0; i < 2; i++) {
