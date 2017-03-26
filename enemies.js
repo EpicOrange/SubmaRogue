@@ -106,5 +106,24 @@ var enemies = {
     "pathfinder":"wander_until_near",
     "name":"giant crab"
   },
-
+  "atlaneanwarrior":{
+    "char":"♆",
+    "color":"cyan",
+    "hp":15,
+    "atk":7,
+    "def":3,
+    "speed":120,
+    "pathfinder":"go_straight_towards",
+    "name":"atlantean warrior",
+  },
+  "atlaneanguard":{
+    "char":"⛢",
+    "color":"cyan",
+    "hp":20,
+    "atk":5,
+    "def":5,
+    "speed":80,
+    "pathfinder":"go_straight_towards",
+    "name":"atlantean guard",
+  },
 };
