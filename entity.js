@@ -5,7 +5,7 @@ class Entity {
     this.y = y;
     this.char = options.char;
     this.color = options.color;
-    this.hp = options.maxHp;
+    this.hp = options.hp;
     this.speed = options.speed;
     this.draw();
   }

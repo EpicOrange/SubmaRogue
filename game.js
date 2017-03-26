@@ -21,7 +21,7 @@ var Game = {
       this.fish = this.map.addEntity(Enemy, {
         char: "F",
         color: "orange",
-        maxHp: 10,
+        hp: 10,
         damage: 1,
         speed: 200,
         pathfinder: ROT.Path.AStar

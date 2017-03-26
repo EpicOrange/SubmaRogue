@@ -3,7 +3,7 @@ class Player extends Entity {
     super(x, y, {
         char: '@',
         color: 'yellow',
-        maxHp: 10,
+        hp: 10,
         speed: 100,
       });
   }
@@ -28,7 +28,6 @@ class Player extends Entity {
 
   handleEvent(e){
     var keyMap = {};
-    // 0 is top left, then goes clockwise
 
     keyMap[75] = keyMap[38] = keyMap[56] = 0; // top
     keyMap[73] =              keyMap[57] = 1; // top right
