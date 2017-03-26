@@ -18,7 +18,6 @@ class Player{
   }
   act(){
     Game.engine.lock();
-    console.log('player act');
     /* wait for user input; do stuff when user hits a key */
     window.addEventListener("keydown", this);
   }
@@ -29,7 +28,6 @@ class Player{
 
   handleEvent(e){
     var keyMap = {};
-    // 0 is top left, then goes clockwise
 
     keyMap[75] = keyMap[38] = keyMap[56] = 0; // top
     keyMap[73] =              keyMap[57] = 1; // top right
@@ -48,7 +46,6 @@ class Player{
     var diff = ROT.DIRS[8][keyMap[code]];
     var newX = this.x + diff[0];
     var newY = this.y + diff[1];
-    console.log(code, diff, newX, newY);
 
     var newKey = newX + "," + newY;
     if(!Game.map.isPassable(newX,newY))return;
