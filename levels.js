@@ -40,8 +40,8 @@ var cave = function(randomness){
     for(var i=0; i<10;i++)cellMap.create();
     cellMap.connect(mapCallback.bind(map),1);
     map.generateStairs(); // stairs
-  }
-}
+  };
+};
 
 var dungeon = function(){
   return function(map){
@@ -141,7 +141,7 @@ var levels = [
         map.addItem('oxygen100');
       }
       map.addItem('lance');
-    }
+    },
   },
   { // level 5
     generateTiles: cave(0.5),
@@ -161,7 +161,8 @@ var levels = [
       for(let i=0;i<1;i++){
         map.addItem('oxygen100');
       }
-    }
+    },
+    lightRadius: 30,
   },
   { // level 6
     generateTiles: dungeon(),
@@ -178,6 +179,7 @@ var levels = [
       for(let i=0;i<1;i++){
         map.addItem('oxygen100');
       }
-    }
+    },
+    lightRadius: 27,
   }
 ];

@@ -42,6 +42,7 @@ var Game = {
     const level = levels[this.level];
     level.generateTiles(map);
     level.generateEntities(map);
+    map.lightRadius = level.lightRadius || 900; // defaults to 900
     this.maps.push(map);
   },
   switchToMap(level, atUpStairs) {

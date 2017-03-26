@@ -44,8 +44,8 @@ class Log {
       this.add(`After months of ${actions[index]}, you and`);
       this.add("...your crew have finally arrived at the location of");
       this.add("...the mythical Atlantis.");
-      this.add("A shark attack had devoured your friends,");
-      this.add("...but you are undeterred.");
+      this.add("A shark attack had devoured your friends.");
+      this.add("You are undeterred. You grab a stick from the wreckage.");
       this.add("You descend in pursuit of the fabled treasure of Atlantis");
       this.add("...and vengeance against those who doubted your insanity.");
       break;
