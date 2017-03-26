@@ -72,13 +72,16 @@ var finalLevel = function(){
     for (let y = 0; y < map.height; y++) {
       for (let x = 0; x < map.width; x++) {
         var key = x+','+y;
-        var isInside = (x > 4 && x < map.width - 4 && y > 4 && y < map.height - 4);
+        var isInside = (x > 3 && x < map.width - 3 && y > 3 && y < map.height - 3);
         if (!isInside) {
           map.map[key]='#';
         }
         if (map.map[key]!='#') {
           map.map[key]=(Math.random() < 0.01 ? '%' : '.');
-          map.freeCells.push(key);
+          var isInsideMiddle = (x > 7 && x < map.width - 7 && y > 7 && y < map.height - 7);
+          if (isInsideMiddle) {
+            map.freeCells.push(key);
+          }
         }
       }
     }

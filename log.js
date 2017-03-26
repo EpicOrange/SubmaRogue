@@ -67,6 +67,39 @@ class Log {
       this.clear();
       this.add("The sunlight from above is fading away as you dive deeper.");
       break;
+    case 6:
+      this.clear();
+      this.add("You see a brief outline of ruins... it must be Atlantis!");
+      break;
+    case 7:
+      this.clear();
+      this.add("You were right all along!");
+      this.add("You find yourself in the dim, pressurized halls of Atlantis.");
+      break;
+    case 8:
+      this.clear();
+      this.add("There are no treasures to be found, besides your equipment.");
+      this.add("Perhaps the legendary treasure is deeper.");
+      break;
+    case 9:
+      this.clear();
+      this.add("The stonework here looks more faded...");
+      this.add("You feel this is the last of the grand halls of Atlantis.");
+      break;
+    case 10:
+      this.clear();
+      this.add("The labyrinth of Atlantis greets you.");
+      this.add("You knew it wasn't going to be easy.");
+      this.add("At least there is plenty of oxygen.");
+      break;
+    case 11:
+      this.clear();
+      this.add("You arrive at the temple room. What is that?");
+      this.add("A non-Euclidean object greets you in the sanctum center.");
+      this.add("It sparkles with an eerie glow. This must be the treasure!");
+      break;
     }
+    // this is the char limit
+    //this.add("You find yourself in the dim, pressurized halls of Atlantis.");
   }
 }

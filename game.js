@@ -80,7 +80,11 @@ var Game = {
       this.switchToMap(this.level - 1, false);
       this.log.add("You ascend the stairs.");
     } else {
-      this.log.add("The abyss stares into you. You find that you cannot leave.");
+      if (this.player.hasTreasure) {
+        this.winGame();
+      } else {
+        this.log.add("The abyss stares into you. You find that you cannot leave.");
+      }
     }
   },
   descendStairs() {
@@ -91,5 +95,18 @@ var Game = {
     } else {
       this.log.add("You try to descend, but the pressure is too great.");
     }
-  }
+  },
+  generateMilitary() {
+    difficulty = 3; // # to spawn
+    for (let i = 9; i >= 0; i--) { // levels 1-10
+      const map = maps[i];
+      for (let j = 0; j < difficulty; j++) {
+        map.createEntityAtFreeCell(Enemy, enemies.military);
+      }
+      difficulty += Math.ceil(difficulty / 5) + 1;
+    }
+  },
+  winGame() {
+    // TODO
+  },
 };

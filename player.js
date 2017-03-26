@@ -17,8 +17,12 @@ class Player extends Entity {
     this.lightRange = 1000; // TODO change according to items?
   }
   damage(dmg){
-    dmg = super.damage(dmg);
-    Game.log.add(`You take ${-1*dmg} damage.`);
+    if (!this.hasTreasure) {
+      dmg = super.damage(dmg);
+      Game.log.add(`You take ${-1*dmg} damage.`);
+    } else {
+      Game.log.add(`It thrusts its harpoon, but you deflect the petty blow.`);
+    }
   }
   die() {
     Game.log.add(`You have died. Press R to restart.`);
@@ -26,7 +30,9 @@ class Player extends Entity {
   }
 
   act(){
-    this.oxygen-=1;
+    if (!this.hasTreasure) {
+      this.oxygen-=1;
+    }
     if(this.oxygen<=0){
       Game.log.add('You have drowned.');
       this.die();
@@ -107,6 +113,23 @@ class Player extends Entity {
           this.oxygen+=item.value;
           Game.map.removeItem(this.x,this.y);
           Game.log.add(`You pick up ${item.value} units of oxygen.`);
+          break;
+        case 'treasure':
+          this.hp = 9999;
+          this.oxygen = 9999;
+          this.hasTreasure = true;
+          this.items = {
+            weapon: new Item(0, 0, 'gungnir'),
+            armor: new Item(0, 0, 'aegis of Poseidon'),
+          };
+          Game.map.removeItem(this.x,this.y);
+          Game.generateMilitary();
+          Game.log.add(`As you pick up the shining trapezohedron, you feel a change`);
+          Game.log.add(`...come over you. Your charm shatters, only to be replaced`);
+          Game.log.add(`...by a shining shield. Your polearm transforms into the`);
+          Game.log.add(`...fabled Gungnir of Odin.`);
+          Game.log.add(`You feel powerful.`);
+          Game.log.add(`You must escape to the surface.`);
           break;
         default:
           console.error(`Unknown item type ${item.type}: item = ${JSON.stringify(item)}`);
