@@ -28,7 +28,7 @@ var levels = [
     generateTiles: MapGenerator.cave,
     generateEntities(map) {
       for (let i = 0; i < 3; i++) {
-        map.createEntityAtFreeCell(Enemy, enemies.squid);
+        map.createEntityAtFreeCell(Enemy, enemies.fish);
       }
       for (let i = 0; i < 5; i++) {
         map.createEntityAtFreeCell(Enemy, enemies.fish);
