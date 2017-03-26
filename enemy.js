@@ -4,6 +4,10 @@ class Enemy extends Entity {
     super(x, y, options);
     this.pathfinder = options.pathfinder;
   }
+  die() {
+    console.log("kill me");
+    Game.map.killEntity(this);
+  }
   act() {
     var playerX = Game.player.x;
     var playerY = Game.player.y;
@@ -13,8 +17,7 @@ class Enemy extends Entity {
 
     pathfinder.compute(this.x, this.y, (x, y) => {path.push([x, y]);});
     if (path.length <= 2) { // path contains only the fish and the player's position
-      // attack player
-      Game.player.damage(this.damage);
+      Game.player.damage(this.atk);
     } else {
       this.moveTo(...path[1]);
     }

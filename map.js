@@ -50,7 +50,7 @@ class Map {
     return this.map[this.getKey(x, y)];
   }
   isPassable(x, y) {
-    return (this.at(x, y) == '.');
+    return (this.at(x, y) == '.') || (this.at(x, y) == '%');
   }
   drawTile(x, y) {
     const item = this.getItem(x,y);
@@ -101,7 +101,7 @@ class Map {
     entity.x = newX;
     entity.y = newY;
     this.entities[newKey] = entity;
-    this.entities[oldKey] = null;
+    delete this.entities[oldKey];
     this.drawTile(oldX, oldY); // draw map tile
     this.drawObject(entity);
   }
@@ -128,5 +128,12 @@ class Map {
   removeItem(x,y){
     var key = this.getKey(x,y);
     delete this.items[key];
+  }
+  killEntity(entity) {
+    const key = this.getKey(entity.x, entity.y);
+    Game.scheduler.remove(entity);
+    delete this.entities[key];
+    this.map[key] = '%';
+    this.drawTile(entity.x, entity.y);
   }
 }

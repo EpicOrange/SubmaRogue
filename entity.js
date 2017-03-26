@@ -12,8 +12,12 @@ class Entity {
     this.draw();
   }
   damage(dmg) {
-    this.hp -= dmg;
-    // todo check dead
+    dmg = Math.min(0, -dmg + this.def);
+    this.hp += dmg;
+    console.log(this.char + " lost " + dmg);
+    if (this.hp <= 0) {
+      this.die();
+    }
   }
   draw() {
     Game.map.drawObject(this);

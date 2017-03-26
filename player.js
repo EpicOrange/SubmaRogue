@@ -20,6 +20,9 @@ class Player extends Entity {
       })
     };
   }
+  die() {
+    console.log("kill player");
+  }
 
   act(){
     Game.engine.lock();
@@ -69,7 +72,7 @@ class Player extends Entity {
     if (!Game.map.isPassable(newX, newY)) {
       return;
     } else if (entity) {
-      entity.damage(0); // TODO damage?
+      entity.damage(this.atk);
     } else {
       this.moveTo(newX,newY);
     }
