@@ -40,8 +40,8 @@ var cave = function(randomness){
     for(var i=0; i<10;i++)cellMap.create();
     cellMap.connect(mapCallback.bind(map),1);
     map.generateStairs(); // stairs
-  }
-}
+  };
+};
 
 // all levels should have an object:
 // generateTiles(map): define map.map, map.freeCells
@@ -64,7 +64,6 @@ var levels = [
       map.addItem('oxygen200');
       map.addItem('spear');
     },
-    lightRadius: 900,
   },
   { // level 2
     generateTiles: cave(0.65),
@@ -85,7 +84,6 @@ var levels = [
       map.addItem('harpoon');
       map.addItem('chainvest');
     },
-    lightRadius: 900,
   },
   { // level 3
     generateTiles: cave(0.65),
@@ -106,7 +104,6 @@ var levels = [
 
       map.addItem('divingsuit');
     },
-    lightRadius: 900,
   },
   { // level 4
     generateTiles: cave(0.65),
@@ -128,7 +125,6 @@ var levels = [
       }
       map.addItem('lance');
     },
-    lightRadius: 900,
   },
   { // level 5
     generateTiles: cave(0.5),

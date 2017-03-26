@@ -1,12 +1,6 @@
 
 var items = {
-  suit: {
-    color:'blue',
-    char:'V',
-    name:'suit',
-    type:'armor',
-    value:1
-  },
+  // weapons
   stick: {
     color:'brown',
     char:'/',
@@ -35,12 +29,13 @@ var items = {
     type:'weapon',
     value:7
   },
-  test: {
-    color:'green',
-    char:'X',
-    name:'test',
-    type:'weapon',
-    value:10
+  // armor
+  suit: {
+    color:'blue',
+    char:'V',
+    name:'suit',
+    type:'armor',
+    value:1
   },
   chainvest:{
     color:'silver',
@@ -56,13 +51,7 @@ var items = {
     type:'armor',
     value:3
   },
-  'armor i guess': {
-    color:'gray',
-    char:'#',
-    name:'armor i guess',
-    type:'armor',
-    value:10
-  },
+  // oxygen
   oxygen50:{
     color:'blue',
     char:'o',
@@ -84,4 +73,26 @@ var items = {
     type:'oxygen',
     value: 200
   },
+  oxygen300: {
+    color:'blue',
+    char:'0',
+    name:'200 units of oxygen',
+    type:'oxygen',
+    value: 200
+  },
 };
+
+// test: {
+//   color:'green',
+//   char:'X',
+//   name:'test',
+//   type:'weapon',
+//   value:10
+// },
+// 'armor i guess': {
+//   color:'gray',
+//   char:'#',
+//   name:'armor i guess',
+//   type:'armor',
+//   value:10
+// },
