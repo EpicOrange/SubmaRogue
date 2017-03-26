@@ -9,6 +9,7 @@ class Entity {
     this.speed = options.speed;
     this.atk = options.atk;
     this.def = options.def;
+    this.name = options.name;
     this.draw();
   }
   damage(dmg) {
@@ -18,6 +19,7 @@ class Entity {
     if (this.hp <= 0) {
       this.die();
     }
+    return dmg;
   }
   draw() {
     Game.map.drawObject(this);

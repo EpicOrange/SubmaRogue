@@ -6,7 +6,8 @@ const enemy_fish = {
   atk: 1,
   def: 1,
   speed: 200,
-  pathfinder: ROT.Path.AStar
+  pathfinder: ROT.Path.AStar,
+  name: 'fish'
 };
 
 class Map {

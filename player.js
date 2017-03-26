@@ -26,8 +26,12 @@ class Player extends Entity {
       })
     };
   }
+  damage(dmg){
+    super.damage(dmg);
+    Game.log.add(`you took ${dmg} damage.`);
+  }
   die() {
-    console.log("kill player");
+    Game.log.add('You have died.');
   }
 
   act(){
@@ -64,12 +68,12 @@ class Player extends Entity {
           Game.map.dropItem(this.items.weapon,this.x,this.y);
           this.items.weapon=item;
           this.atk=item.value;
-          console.log('picked up ' +item.name);
+          Game.log.add('Picked up ' + item.name + '.');
         }else if(item.type=='armor'){
           Game.map.dropItem(this.items.armor,this.x,this.y);
           this.items.armor=item;
           this.def=item.value;
-          console.log('picked up '+item.name);
+          Game.log.add('Picked up ' + item.name + '.');
         }
       }else{
         console.log('no item');
@@ -85,7 +89,7 @@ class Player extends Entity {
     if (!Game.map.isPassable(newX, newY)) {
       return;
     } else if (entity) {
-      entity.damage(this.atk);
+      Game.log.add(`You dealt ${-1*entity.damage(this.atk)} damage to ${entity.name}.`);
     } else {
       this.moveTo(newX,newY);
     }
