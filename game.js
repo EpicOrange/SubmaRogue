@@ -74,8 +74,12 @@ var Game = {
     }
   },
   descendStairs() {
-    console.log("down to level " + (this.level + 1));
-    this.switchToMap(this.level + 1, true);
-    this.log.add("You descend the stairs.");
+    if (this.level < levels.length) {
+      console.log("down to level " + (this.level + 1));
+      this.switchToMap(this.level + 1, true);
+      this.log.add("You descend the stairs.");
+    } else {
+      this.log.add("You try to descend, but the pressure is too great.");
+    }
   }
 };
