@@ -20,7 +20,7 @@ var enemies = {
     "name":"shark"
   },
   "squid":{
-    "char":"☄ ",
+    "char":"A",
     "color":"red",
     "hp":6,
     "atk":2,
@@ -30,7 +30,7 @@ var enemies = {
     "name":"squid"
   },
   "giantsquid":{
-    "char":"☄ ",
+    "char":"A",
     "color":"#7D290F",
     "hp":10,
     "atk":4,
@@ -38,5 +38,15 @@ var enemies = {
     "speed":90,
     "pathfinder":ROT.Path.AStar,
     "name":"giantsquid"
+  },
+  "snake":{
+    "char":"S",
+    "color":"yellow",
+    "hp":4,
+    "atk":4,
+    "def":0,
+    "speed":80,
+    "pathfinder":ROT.Path.AStar,
+    "name":"snake"
   }
 }

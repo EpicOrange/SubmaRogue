@@ -34,5 +34,6 @@ class Status {
     const hp = `HP: %c{${color}}${this.getHpBar()}%c{}`;
     this.display.drawText(0, 0, name);
     this.display.drawText(name.length + 1, 0, hp);
+    this.display.drawText(name.length + 10, 0,"Oxygen: "+Game.player.oxygen);
   }
 }

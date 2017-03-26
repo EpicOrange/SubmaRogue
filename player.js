@@ -25,6 +25,7 @@ class Player extends Entity {
         value: 3
       })
     };
+    this.oxygen = 30;
   }
   damage(dmg){
     super.damage(dmg);
@@ -37,6 +38,10 @@ class Player extends Entity {
   }
 
   act(){
+    this.oxygen-=1;
+    if(this.oxygen<=0){
+      Game.log.add('You have drowned.');
+    }
     Game.status.update();
     Game.log.update();
     Game.engine.lock();
@@ -116,7 +121,9 @@ class Player extends Entity {
         console.error(`Keymap includes ${code} = ${keyMap[code]} but we don't handle it`);
       }
     }
-    window.removeEventListener('keydown', this);
-    Game.engine.unlock();
+    if (code in keyMap) {
+      window.removeEventListener('keydown', this);
+      Game.engine.unlock();
+    }
   }
 }
