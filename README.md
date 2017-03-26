@@ -1,5 +1,5 @@
 # SubmaRogue
-open main.html to play
+Working demo: [here](https://epicorange.github.io/SubmaRogue/)
 
 ## Controls:
   movement: arrowkeys, numpad
