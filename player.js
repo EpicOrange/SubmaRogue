@@ -18,7 +18,7 @@ class Player extends Entity {
   }
   damage(dmg){
     dmg = super.damage(dmg);
-    Game.log.add(`you took ${-1*dmg} damage.`);
+    Game.log.add(`You take ${-1*dmg} damage.`);
   }
   die() {
     Game.log.add(`You have died. Press R to restart.`);
@@ -138,7 +138,7 @@ class Player extends Entity {
       if (!Game.map.isPassable(newX, newY)) {
         return;
       } else if (entity) {
-        Game.log.add(`You dealt ${-1*entity.damage(this.atk)} damage to ${entity.name}.`);
+        entity.damage(this.atk);
       } else {
         this.moveTo(newX,newY);
         this.describePosition();

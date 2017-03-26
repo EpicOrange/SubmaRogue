@@ -18,8 +18,16 @@ class Entity {
     dmg = Math.min(0, -dmg + this.def);
     this.hp += dmg;
     console.log(this.char + " lost " + dmg);
+    const isEnemy = ("pathfinder" in this);
     if (this.isDead()) {
       this.die();
+      if (isEnemy) {
+        Game.log.add(`You kill ${this.name}.`);
+      }
+    } else {
+      if (isEnemy) {
+        Game.log.add(`You dealt ${-dmg} damage to ${this.name}.`);
+      }
     }
     return dmg;
   }
