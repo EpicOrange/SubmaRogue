@@ -81,8 +81,12 @@ class Player extends Entity {
       keyMap[190] = keyMap[32] = keyMap[53] = '.'; // wait
       keyMap[71] = keyMap[188] = 'g';
       if (e.shiftKey) {
-        keyMap[188] = '<';
-        keyMap[190] = '>';
+        if (Game.map.at(Game.player.x, Game.player.y) == "<") {
+          keyMap[188] = '<';
+        }
+        if (Game.map.at(Game.player.x, Game.player.y) == ">") {
+          keyMap[190] = '>';
+        }
       }
     }
 
