@@ -1,11 +1,11 @@
-class Player{
-  constructor(x,y){
-    this.x = x;
-    this.y = y;
-    this.char = '@';
-    this.color = 'yellow';
-    this.speed = 100;
-    this.draw();
+class Player extends Entity {
+  constructor(x, y){
+    super(x, y, {
+        char: '@',
+        color: 'yellow',
+        maxHp: 10,
+        speed: 100,
+      });
   }
   draw() {
     Game.map.drawEntity(this);
@@ -18,9 +18,8 @@ class Player{
   }
   act(){
     Game.engine.lock();
-    console.log('player act');
     /* wait for user input; do stuff when user hits a key */
-    window.addEventListener("keydown", this);
+    window.addEventListener('keydown', this);
   }
 
   getSpeed(){
@@ -48,12 +47,11 @@ class Player{
     var diff = ROT.DIRS[8][keyMap[code]];
     var newX = this.x + diff[0];
     var newY = this.y + diff[1];
-    console.log(code, diff, newX, newY);
 
-    var newKey = newX + "," + newY;
+    var newKey = newX + ',' + newY;
     if(!Game.map.isPassable(newX,newY))return;
     this.moveTo(newX,newY);
-    window.removeEventListener("keydown", this);
+    window.removeEventListener('keydown', this);
     Game.engine.unlock();
   }
 
