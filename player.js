@@ -10,8 +10,8 @@ class Player extends Entity {
         def:1
       });
     this.items = {
-      weapon: new Item(0, 0, 'stick'),
-      armor: new Item(0, 0, 'suit'),
+      weapon: new Item(0, 0, 'pointy stick'),
+      armor: new Item(0, 0, 'rock'),
     };
     this.oxygen = 100;
     this.lightRange = 1000; // TODO change according to items?
