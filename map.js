@@ -118,10 +118,10 @@ class Map {
     this.drawTile(oldX, oldY); // draw map tile
     this.drawObject(entity);
   }
-  addItem(options){
+  addItem(name){
     var key = this.pullFreeCellKey();
     var [x, y] = this.getPos(key);
-    this.items[key]=new Item(x,y,options);
+    this.items[key]=new Item(x,y,name);
     this.drawTile(x,y);
   }
   dropItem(item,x,y){

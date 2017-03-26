@@ -30,8 +30,8 @@ var levels = [
       for (let i = 0; i < 3; i++) {
         map.createEntityAtFreeCell(Enemy, enemies.squid);
       }
-      map.addItem({color:'green',char:'X',name:'test',type:'weapon',value:10});
-      map.addItem({color:'gray',char:'#',name:'armor i guess',type:'armor',value:10});
+      map.addItem('test');
+      map.addItem('armor i guess');
     },
   },
   { // level 2
@@ -40,8 +40,8 @@ var levels = [
       for (let i = 0; i < 5; i++) {
         map.createEntityAtFreeCell(Enemy, enemies.squid);
       }
-      map.addItem({color:'green',char:'X',name:'test',type:'weapon',value:10});
-      map.addItem({color:'gray',char:'#',name:'armor i guess',type:'armor',value:10});
+      map.addItem('test');
+      map.addItem('armor i guess');
     },
   },
   { // level 3
@@ -50,8 +50,8 @@ var levels = [
       for (let i = 0; i < 7; i++) {
         map.createEntityAtFreeCell(Enemy, enemies.squid);
       }
-      map.addItem({color:'green',char:'X',name:'test',type:'weapon',value:10});
-      map.addItem({color:'gray',char:'#',name:'armor i guess',type:'armor',value:10});
+      map.addItem('test');
+      map.addItem('armor i guess');
     },
   },
 ];

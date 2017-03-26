@@ -10,20 +10,8 @@ class Player extends Entity {
         def:0
       });
     this.items = {
-      armor:new Item(0,0,{
-        color:'blue',
-        char:'V',
-        name:'suit',
-        type:'armor',
-        value:1
-      }),
-      weapon:new Item(0,0,{
-        color:'brown',
-        char:'/',
-        name:'stick',
-        type:'weapon',
-        value: 3
-      })
+      weapon: new Item(0, 0, 'stick'),
+      armor: new Item(0, 0, 'suit'),
     };
     this.oxygen = 30;
   }
@@ -74,17 +62,24 @@ class Player extends Entity {
     case 'g': // get items
       var item = Game.map.getItem(this.x,this.y);
       if(item){
-        if(item.type=='weapon'){
+        switch(item.type) {
+        case 'weapon':
           Game.map.dropItem(this.items.weapon,this.x,this.y);
           this.items.weapon=item;
           this.atk=item.value;
-          console.log('picked up ' +item.name);
-        }else if(item.type=='armor'){
+          break;
+        case 'armor':
           Game.map.dropItem(this.items.armor,this.x,this.y);
           this.items.armor=item;
           this.def=item.value;
-          console.log('picked up '+item.name);
+          break;
+        case 'oxygen':
+          this.oxygen+=item.value;
+          break;
+        default:
+          console.error(`Unknown item type ${item.type}: item = ${JSON.stringify(item)}`);
         }
+        console.log('picked up ' +item.name);
       }else{
         console.log('no item');
       }
