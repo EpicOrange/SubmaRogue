@@ -9,7 +9,7 @@ var cave = function(randomness){
     var mapCallback = function(x,y,value){
       var key = x+','+y;
       if (value == 0) {
-        map.map[key]='#';
+        map.map[key]='=';
       } else {
         map.map[key]='.';
         map.freeCells.push(key);
@@ -35,6 +35,54 @@ var dungeon = function(){
     };
     diggerMap.create(mapCallback.bind(map));
     map.generateStairs();
+  };
+};
+
+var maze = function(){
+  return function(map){
+    var diggerMap = new ROT.Map.DividedMaze(map.width-2, map.height-2);
+    var mapCallback = function(x,y,value){
+      var key = x+','+y;
+      if (value == 1) {
+        map.map[key]='#';
+      } else {
+        map.map[key]='.';
+        map.freeCells.push(key);
+      }
+    };
+    diggerMap.create(mapCallback.bind(map));
+    map.generateStairs();
+  };
+};
+
+var finalLevel = function(){
+  return function(map){
+    const createPillar = (cx, cy) => {
+      for (let y = cy-2; y <= cy+2; y++) {
+        for (let x = cx-2; x <= cx+2; x++) {
+          var key = x+','+y;
+          map.map[key]='#';
+        }
+      }
+    };
+    createPillar(Math.floor(map.width / 4), Math.floor(map.height / 4));
+    createPillar(Math.ceil(3 * map.width / 4), Math.floor(map.height / 4));
+    createPillar(Math.floor(map.width / 4), Math.ceil(3 * map.height / 4));
+    createPillar(Math.ceil(3 * map.width / 4), Math.ceil(3 * map.height / 4));
+    for (let y = 0; y < map.height; y++) {
+      for (let x = 0; x < map.width; x++) {
+        var key = x+','+y;
+        var isInside = (x > 4 && x < map.width - 4 && y > 4 && y < map.height - 4);
+        if (!isInside) {
+          map.map[key]='#';
+        }
+        if (map.map[key]!='#') {
+          map.map[key]=(Math.random() < 0.01 ? '%' : '.');
+          map.freeCells.push(key);
+        }
+      }
+    }
+    map.generateUpStairs();
   };
 };
 

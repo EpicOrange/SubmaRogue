@@ -42,11 +42,9 @@ class Map {
   }
 
   // generation functions
-  generateStairs() {
+  generateUpStairs() {
     this.upStairsKey = this.pullFreeCellKey();
-    this.downStairsKey = this.pullFreeCellKey();
     this.map[this.upStairsKey] = '<';
-    this.map[this.downStairsKey] = '>';
     // remove free cells from around upStairsKey
     for (let key in this.freeCells) {
       let [x1, y1] = this.getPos(this.upStairsKey);
@@ -55,6 +53,14 @@ class Map {
         delete this.freeCells[key];
       }
     }
+  }
+  generateDownStairs() {
+    this.downStairsKey = this.pullFreeCellKey();
+    this.map[this.downStairsKey] = '>';
+  }
+  generateStairs() {
+    this.generateUpStairs();
+    this.generateDownStairs();
   }
   placePlayerEntity(player, key) {
     this.entities[key] = player;
