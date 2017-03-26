@@ -6,24 +6,13 @@ class Player extends Entity {
         hp: 10,
         speed: 100,
       });
+    this.items = {};
   }
-  draw() {
-    Game.map.drawEntity(this);
-  }
-  moveTo(x,y){
-    Game.map.drawTile(this.x, this.y); // draw map tile
-    this.x = x;
-    this.y = y;
-    this.draw();
-  }
+
   act(){
     Game.engine.lock();
     /* wait for user input; do stuff when user hits a key */
     window.addEventListener('keydown', this);
-  }
-
-  getSpeed(){
-    return this.speed;
   }
 
   handleEvent(e){
