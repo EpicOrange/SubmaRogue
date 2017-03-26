@@ -33,5 +33,8 @@ var Game = {
   },
   addEvent: function(event){
     this.scheduler.add(event,false);
+  },
+  advanceLevel() {
+    this.log.add("grats you won our entire game");
   }
 };

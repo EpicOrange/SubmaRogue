@@ -50,14 +50,14 @@ class Player extends Entity {
     keyMap[66] =              keyMap[49] = 5; // bottom left
     keyMap[72] = keyMap[37] = keyMap[52] = 6; // left
     keyMap[89] =              keyMap[55] = 7; // top left
-    //todo 71 (G) 188 (,) for picking up items
-    keyMap[71] = keyMap[188] = 'i';//check items
+    keyMap[190] = keyMap[32] = keyMap[53] = '.'; // wait
+    keyMap[71] = keyMap[188] = 'i';
+
     var code = e.keyCode;
     e.preventDefault(); // prevent e.g. arrow keys from scrolling the page
 
-    if(!(code in keyMap))return;
-    //get item
-    if(keyMap[code]=='i'){
+    switch(keyMap[code]) {
+    case 'i': // check items
       var item = Game.map.getItem(this.x,this.y);
       if(item){
         if(item.type=='weapon'){
@@ -74,20 +74,30 @@ class Player extends Entity {
       }else{
         console.log('no item');
       }
-    }else{
+      break;
+    case '.': // do nothing
+      if (e.shiftKey) { // '>', go down stairs
+        Game.advanceLevel();
+      } else { // '.', do nothing
+      }
+      break;
+    case 0: case 1: case 2: case 3: case 4:
+    case 5: case 6: case 7: case 8: case 9:
       var diff = ROT.DIRS[8][keyMap[code]];
       var newX = this.x + diff[0];
       var newY = this.y + diff[1];
-    }
-
-    var newKey = newX + ',' + newY;
-    var entity = Game.map.getEntity(newX, newY);
-    if (!Game.map.isPassable(newX, newY)) {
-      return;
-    } else if (entity) {
-      entity.damage(this.atk);
-    } else {
-      this.moveTo(newX,newY);
+      var newKey = newX + ',' + newY;
+      var entity = Game.map.getEntity(newX, newY);
+      if (!Game.map.isPassable(newX, newY)) {
+        return;
+      } else if (entity) {
+        entity.damage(this.atk);
+      } else {
+        this.moveTo(newX,newY);
+      }
+      break;
+    default:
+      console.error(`Keymap includes ${code} = ${keyMap[code]} but we don't handle it`);
     }
     window.removeEventListener('keydown', this);
     Game.engine.unlock();
