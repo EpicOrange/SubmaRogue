@@ -11,18 +11,18 @@ class Map {
   }
   generate() {
     var cellMap = new ROT.Map.Cellular(this.width,this.height,{
-      born:[5,6,7,8],
-      survive:[3,4,5,6,7]
+      connected:true
     });
 
-    cellMap.randomize(0.9);
+    cellMap.randomize(0.5);
     var mapCallback = function(x,y,value){
-      if(value)return;
+      if(!value)return;
       var key = x+','+y;
       this.map[key]='.';
       this.freeCells.push(key);
     }
-    cellMap.create(mapCallback.bind(this));
+    for(var i=0; i<10;i++)cellMap.create();
+    cellMap.connect(mapCallback.bind(this),1);
   }
   getKey(x, y) { // convert x, y to key
     return (x + "," + y);
