@@ -15,7 +15,7 @@ class Enemy {
     Game.map.drawTile(this.x, this.y, this.char, this.color); // draw map tile
     this.x = x;
     this.y = y;
-    Game.map.drawEntity(this);
+    this.draw();
   }
   act() {
     var playerX = Game.player.getX();

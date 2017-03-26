@@ -24,11 +24,14 @@ class Map {
     }
     cellMap.create(mapCallback.bind(this));
   }
-  at(x, y) {
+  getKey(x, y) { // convert x, y to key
     return (x + "," + y);
   }
+  at(x, y) { // get map square at x, y
+    return this.map[this.getKey(x, y)];
+  }
   isPassable(x, y) {
-    return this.at(x, y) == 0;
+    return this.at(x, y) == '.';
   }
   drawTile(x, y, char, color) {
       Game.display.draw(x, y, char, color);
