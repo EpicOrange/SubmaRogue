@@ -53,6 +53,7 @@ var Game = {
     }
     if (index >= this.maps.length) {
       this.addNewMap();
+      this.log.printStory(level);
     } else if (index < 0) {
       return;
     }
