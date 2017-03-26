@@ -3,6 +3,7 @@ var width = 60;
 var height = 45;
 var Game = {
   log: new Log(width),
+  status: new Status(width),
   player: null,
   scheduler: null,
   engine: null,
@@ -14,6 +15,7 @@ var Game = {
     });
     document.body.appendChild(this.log.display.getContainer());
     document.body.appendChild(this.display.getContainer());
+    document.body.appendChild(this.status.display.getContainer());
 
     this.scheduler = new ROT.Scheduler.Speed();
 
