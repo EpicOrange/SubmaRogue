@@ -22,37 +22,16 @@ class Map {
     this.items = {};
     this.upStairsKey = null;
     this.downStairsKey = null;
-    this.generateTiles();
   }
   pullFreeCellKey() {
     var index = Math.floor(ROT.RNG.getUniform() * this.freeCells.length);
     return this.freeCells.splice(index, 1)[0];
   }
-  generateTiles() {
-    // '.' tiles
-    var cellMap = new ROT.Map.Cellular(this.width,this.height,{
-      connected:true
-    });
-    cellMap.randomize(0.5);
-    var mapCallback = function(x,y,value){
-      if(!value)return;
-      var key = x+','+y;
-      this.map[key]='.';
-      this.freeCells.push(key);
-    };
-    for(var i=0; i<10;i++)cellMap.create();
-    cellMap.connect(mapCallback.bind(this),1);
-
-    // stairs
+  generateStairs() {
     this.upStairsKey = this.pullFreeCellKey();
     this.downStairsKey = this.pullFreeCellKey();
     this.map[this.upStairsKey] = '<';
     this.map[this.downStairsKey] = '>';
-  }
-  generateEntities() {
-    for (let i = 0; i < 3; i++) {
-      this.createEntityAtFreeCell(Enemy, enemies.squid);
-    }
   }
   placePlayerEntity(player, key) {
     this.entities[key] = player;

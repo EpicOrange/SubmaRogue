@@ -31,16 +31,13 @@ var Game = {
   },
   addNewMap() {
     const map = new Map(width, height);
-    // TODO enemies and items should be different for each level
-    switch(this.level) {
-    default:
-      map.generateEntities();
-      map.addItem({color:'green',char:'X',name:'test',type:'weapon',value:10});
-      map.addItem({color:'gray',char:'#',name:'armor i guess',type:'armor',value:10});
-    }
+    const level = levels[this.level];
+    level.generateTiles(map);
+    level.generateEntities(map);
     this.maps.push(map);
   },
   switchToMap(level, atUpStairs) {
+    this.level = level;
     const index = level - 1;
     if (this.map) {
       this.map.removePlayerEntity(this.player);
@@ -51,7 +48,6 @@ var Game = {
     } else if (index < 0) {
       return;
     }
-    this.level = level;
     this.map = this.maps[index];
     const playerPosKey = (atUpStairs ? this.map.upStairsKey : this.map.downStairsKey);
     this.map.placePlayerEntity(this.player, playerPosKey);
