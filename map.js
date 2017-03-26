@@ -13,6 +13,7 @@ class Map {
     this.items = {};
     this.upStairsKey = null;
     this.downStairsKey = null;
+    this.lightRadius = 900;
   }
   
   // util functions
@@ -116,7 +117,7 @@ class Map {
   revealMapAroundPlayer() {
     var fov = new ROT.FOV.RecursiveShadowcasting(this.isPassable.bind(this));
     this.visibleTiles = {};
-    fov.compute(Game.player.x, Game.player.y, Game.player.lightRange, (x, y) => {
+    fov.compute(Game.player.x, Game.player.y, this.lightRadius, (x, y) => {
       const key = this.getKey(x, y);
       this.visibleTiles[key] = true;
       this.revealedTiles[key] = true;

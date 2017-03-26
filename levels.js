@@ -64,6 +64,7 @@ var levels = [
       map.addItem('oxygen200');
       map.addItem('spear');
     },
+    lightRadius: 900,
   },
   { // level 2
     generateTiles: cave(0.65),
@@ -84,6 +85,7 @@ var levels = [
       map.addItem('harpoon');
       map.addItem('chainvest');
     },
+    lightRadius: 900,
   },
   { // level 3
     generateTiles: cave(0.65),
@@ -104,6 +106,7 @@ var levels = [
 
       map.addItem('divingsuit');
     },
+    lightRadius: 900,
   },
   { // level 4
     generateTiles: cave(0.65),
@@ -124,7 +127,8 @@ var levels = [
         map.addItem('oxygen100');
       }
       map.addItem('lance');
-    }
+    },
+    lightRadius: 900,
   },
   { // level 5
     generateTiles: cave(0.5),
@@ -144,7 +148,8 @@ var levels = [
       for(let i=0;i<1;i++){
         map.addItem('oxygen100');
       }
-    }
+    },
+    lightRadius: 30,
   },
   { // level 6
     generateTiles: cave(0.45),
@@ -161,6 +166,7 @@ var levels = [
       for(let i=0;i<1;i++){
         map.addItem('oxygen100');
       }
-    }
+    },
+    lightRadius: 27,
   }
 ];
