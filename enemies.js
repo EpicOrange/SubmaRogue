@@ -12,25 +12,23 @@ class Enemy {
     this.draw();
   }
   moveTo(x, y) {
-    Game.map.drawTile(this.x, this.y, this.char, this.color); // draw map tile
+    Game.map.drawTile(this.x, this.y); // draw map tile
     this.x = x;
     this.y = y;
     this.draw();
   }
   act() {
-    var playerX = Game.player.getX();
-    var playerY = Game.player.getY();
-    var isPassable = (x, y) => (x+","+y in Game.map);
+    var playerX = Game.player.x;
+    var playerY = Game.player.y;
+    var isPassable = Game.map.isPassable.bind(Game.map);
     var path = [];
-    var pathfinder = this.pathfinder(playerX, playerY, isPassable, {topology: 8});
+    var pathfinder = new this.pathfinder(playerX, playerY, isPassable, {topology: 8});
     pathfinder.compute(this.x, this.y, (x, y) => {path.push([x, y]);});
     if (path.length <= 1) {
       // attack player
       // Game.player.damage(this.damage);
     } else {
-      x = path[1][0];
-      y = path[1][1];
-      this.moveTo(x, y);
+      this.moveTo(...path[1]);
     }
   }
   getSpeed() {
@@ -41,11 +39,3 @@ class Enemy {
   }
 }
 
-var fish = new Enemy(x, y, {
-  char: "F",
-  color: "orange",
-  maxHp: 10,
-  damage: 1,
-  speed: 200,
-  pathfinder: ROT.Path.AStar
-});

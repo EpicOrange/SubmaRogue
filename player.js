@@ -4,14 +4,14 @@ class Player{
     this.y = y;
     this.char = '@';
     this.color = 'yellow';
-    this.draw();
     this.speed = 100;
+    this.draw();
   }
-  draw(){
+  draw() {
     Game.map.drawEntity(this);
   }
   moveTo(x,y){
-    console.log('move');
+    Game.map.drawTile(this.x, this.y); // draw map tile
     this.x = x;
     this.y = y;
     this.draw();
@@ -29,22 +29,26 @@ class Player{
 
   handleEvent(e){
     var keyMap = {};
-    //0 is top left, then goes clockwise
-    keyMap[55] = 0;
-    keyMap[52] = 1;
-    keyMap[49] = 2;
-    keyMap[50] = 3;
-    keyMap[51] = 4;
-    keyMap[54] = 5;
-    keyMap[57] = 6;
-    keyMap[56] = 7;
+    // 0 is top left, then goes clockwise
+
+    keyMap[75] = keyMap[38] = keyMap[56] = 0; // top
+    keyMap[73] =              keyMap[57] = 1; // top right
+    keyMap[76] = keyMap[39] = keyMap[54] = 2; // right
+    keyMap[78] =              keyMap[51] = 3; // bottom right
+    keyMap[74] = keyMap[40] = keyMap[50] = 4; // bottom
+    keyMap[66] =              keyMap[49] = 5; // bottom left
+    keyMap[72] = keyMap[37] = keyMap[52] = 6; // left
+    keyMap[89] =              keyMap[55] = 7; // top left
 
     var code = e.keyCode;
-    console.log(code);
     if(!(code in keyMap))return;
+
+    e.preventDefault(); // prevent e.g. arrow keys from scrolling the page
+
     var diff = ROT.DIRS[8][keyMap[code]];
-    var newX = this._x + diff[0];
-    var newY = this._y + diff[1];
+    var newX = this.x + diff[0];
+    var newY = this.y + diff[1];
+    console.log(code, diff, newX, newY);
 
     var newKey = newX + "," + newY;
     if(!Game.map.isPassable(newX,newY))return;
