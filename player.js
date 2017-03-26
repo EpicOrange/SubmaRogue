@@ -27,6 +27,9 @@ class Player extends Entity {
     Game.log.add(`You have died. Press R to restart.`);
     console.log("kill player");
   }
+  isDead() {
+    return (this.hp <= 0) || (this.oxygen<=0);
+  }
 
   act(){
     if (!this.hasTreasure) {
