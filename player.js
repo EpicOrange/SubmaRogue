@@ -29,6 +29,7 @@ class Player extends Entity {
     this.oxygen-=1;
     if(this.oxygen<=0){
       Game.log.add('You have drowned.');
+      this.die();
     }
     Game.map.revealMapAroundPlayer();
     Game.status.update();

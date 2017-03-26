@@ -35,6 +35,8 @@ class Status {
     this.display.drawText(0, 0, name);
     this.display.drawText(name.length + 1, 0, hp);
     this.display.drawText(name.length + 10, 0,"Oxygen: "+Game.player.oxygen);
+    const stats = `ATK: ${Game.player.atk} DEF: ${Game.player.def} Level: ${Game.level}`;
+    this.display.drawText(0, 1, stats);
   }
   clear() {
     this.messages = [];
