@@ -8,7 +8,6 @@ class Log {
       forceSquareRatio: true
     });
     this.messages = [];
-    this.update();
   }
   update() {
     for (let i = 0; i < this.messages.length; i++) {
@@ -21,6 +20,5 @@ class Log {
     if (this.messages.length > this.logHeight) {
       this.messages.pop(); // remove from back
     }
-    this.update();
   }
 }

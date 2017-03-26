@@ -31,6 +31,8 @@ class Player extends Entity {
   }
 
   act(){
+    Game.status.update();
+    Game.log.update();
     Game.engine.lock();
     /* wait for user input; do stuff when user hits a key */
     window.addEventListener('keydown', this);
