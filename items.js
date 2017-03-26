@@ -53,32 +53,32 @@ var items = {
   },
   // oxygen
   oxygen50:{
-    color:'blue',
+    color:'#79C3DB',
     char:'o',
     name:'50 units of oxygen',
     type:'oxygen',
     value:50
   },
   oxygen100: {
-    color:'blue',
+    color:'#79C3DB',
     char:'∞',
     name:'100 units of oxygen',
     type:'oxygen',
     value: 100
   },
   oxygen200: {
-    color:'blue',
+    color:'#79C3DB',
     char:'8',
     name:'200 units of oxygen',
     type:'oxygen',
     value: 200
   },
   oxygen300: {
-    color:'blue',
+    color:'#79C3DB',
     char:'0',
-    name:'200 units of oxygen',
+    name:'300 units of oxygen',
     type:'oxygen',
-    value: 200
+    value: 300
   },
 };
 
