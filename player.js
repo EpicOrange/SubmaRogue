@@ -1,12 +1,24 @@
 class Player extends Entity {
   constructor(x, y){
-    super(x, y, {
+    super(x, y,
+      {
         char: '@',
         color: 'yellow',
         hp: 10,
         speed: 100,
+        atk:3,
+        def:0
       });
-    this.items = {};
+    this.items = {
+      armor:'none',
+      weapon:new Item(0,0,{
+        color:'brown',
+        char:'/',
+        name:'stick',
+        type:'weapon',
+        value: 3
+      })
+    };
   }
 
   act(){
@@ -26,19 +38,34 @@ class Player extends Entity {
     keyMap[66] =              keyMap[49] = 5; // bottom left
     keyMap[72] = keyMap[37] = keyMap[52] = 6; // left
     keyMap[89] =              keyMap[55] = 7; // top left
-
+    //todo 71 (G) 188 (,) for picking up items
+    keyMap[71] = keyMap[188] = 'i';//check items
     var code = e.keyCode;
-    if(!(code in keyMap))return;
-
     e.preventDefault(); // prevent e.g. arrow keys from scrolling the page
 
-    var diff = ROT.DIRS[8][keyMap[code]];
-    var newX = this.x + diff[0];
-    var newY = this.y + diff[1];
+    if(!(code in keyMap))return;
 
-    var newKey = newX + ',' + newY;
-    if(!Game.map.isPassable(newX,newY))return;
-    this.moveTo(newX,newY);
+    if(keyMap[code]=='i'){
+      var item = Game.map.getItem(this.x,this.y);
+      if(item){
+        if(item.type=='weapon'){
+          Game.map.dropItem(this.items.weapon,this.x,this.y);
+          this.items.weapon=item;
+          this.atk=item.value;
+          console.log('picked up ' +item.name);
+        }
+      }else{
+        console.log('no item');
+      }
+    }else{
+      var diff = ROT.DIRS[8][keyMap[code]];
+      var newX = this.x + diff[0];
+      var newY = this.y + diff[1];
+
+      var newKey = newX + ',' + newY;
+      if(!Game.map.isPassable(newX,newY))return;
+      this.moveTo(newX,newY);
+    }
     window.removeEventListener('keydown', this);
     Game.engine.unlock();
   }

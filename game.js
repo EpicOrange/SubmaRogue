@@ -28,6 +28,7 @@ var Game = {
       });
       this.addActor(this.fish);
       this.engine.start();
+      this.map.addItem({color:'green',char:'X',name:'test',type:'weapon',value:10});
   },
   addActor: function(actor){
     this.scheduler.add(actor,true);
