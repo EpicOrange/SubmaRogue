@@ -4,20 +4,20 @@ class Player extends Entity {
       {
         char: '@',
         color: 'yellow',
-        hp: 10,
+        hp: 30,
         speed: 100,
         atk:3,
-        def:0
+        def:1
       });
     this.items = {
       weapon: new Item(0, 0, 'stick'),
       armor: new Item(0, 0, 'suit'),
     };
-    this.oxygen = 30;
+    this.oxygen = 100;
   }
   damage(dmg){
-    super.damage(dmg);
-    Game.log.add(`you took ${dmg} damage.`);
+    dmg = super.damage(dmg);
+    Game.log.add(`you took ${-1*dmg} damage.`);
   }
   die() {
     Game.log.add(`You have died.`);
@@ -67,14 +67,18 @@ class Player extends Entity {
           Game.map.dropItem(this.items.weapon,this.x,this.y);
           this.items.weapon=item;
           this.atk=item.value;
+          Game.log.add('You pick up ' + item.name+'.');
           break;
         case 'armor':
           Game.map.dropItem(this.items.armor,this.x,this.y);
           this.items.armor=item;
           this.def=item.value;
+          Game.log.add('You pick up ' + item.name +'.');
           break;
         case 'oxygen':
           this.oxygen+=item.value;
+          Game.map.removeItem(this.x,this.y);
+          Game.log.add(`You pick up ${item.value} units of oxygen.`);
           break;
         default:
           console.error(`Unknown item type ${item.type}: item = ${JSON.stringify(item)}`);

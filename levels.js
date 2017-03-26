@@ -30,28 +30,63 @@ var levels = [
       for (let i = 0; i < 3; i++) {
         map.createEntityAtFreeCell(Enemy, enemies.squid);
       }
-      map.addItem('test');
-      map.addItem('armor i guess');
+      for (let i = 0; i < 5; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.fish);
+      }
+      for(let i=0;i<3;i++){
+        map.addItem('oxygen50');
+      }
+      for(let i=0;i<2;i++){
+        map.addItem('oxygen100');
+      }
+      map.addItem('oxygen200');
+      map.addItem('spear');
     },
   },
   { // level 2
     generateTiles: MapGenerator.cave,
     generateEntities(map) {
+      for (let i = 0; i < 1; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.shark);
+      }
       for (let i = 0; i < 5; i++) {
         map.createEntityAtFreeCell(Enemy, enemies.squid);
       }
-      map.addItem('test');
-      map.addItem('armor i guess');
+      for (let i = 0; i < 2; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.snake);
+      }
+      for(let i=0;i<2;i++){
+        map.addItem('oxygen50');
+      }
+      for(let i=0;i<2;i++){
+        map.addItem('oxygen100');
+      }
+      map.addItem('oxygen200');
+      map.addItem('harpoon');
+      map.addItem('chainvest');
     },
   },
   { // level 3
     generateTiles: MapGenerator.cave,
     generateEntities(map) {
-      for (let i = 0; i < 7; i++) {
+      for (let i = 0; i < 1; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.shark);
+      }
+      for (let i = 0; i < 5; i++) {
         map.createEntityAtFreeCell(Enemy, enemies.squid);
       }
-      map.addItem('test');
-      map.addItem('armor i guess');
+      for (let i = 0; i < 1; i++) {
+        map.createEntityAtFreeCell(Enemy, enemies.giantsquid);
+      }
+      for(let i=0;i<2;i++){
+        map.addItem('oxygen50');
+      }
+      for(let i=0;i<1;i++){
+        map.addItem('oxygen100');
+      }
+      map.addItem('oxygen200');
+      
+      map.addItem('divingsuit');
     },
   },
 ];
