@@ -16,7 +16,9 @@ class Enemy extends Entity {
     var pathfinder = new this.pathfinder(playerX, playerY, isPassable, {topology: 8});
 
     pathfinder.compute(this.x, this.y, (x, y) => {path.push([x, y]);});
-    if (path.length <= 2) { // path contains only the fish and the player's position
+    if (path.length == 0) { // no path
+      // do nothing i guess
+    } else if (path.length <= 2) { // path contains only the fish and the player's position
       Game.player.damage(this.atk);
     } else {
       this.moveTo(...path[1]);

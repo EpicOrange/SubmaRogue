@@ -7,7 +7,10 @@ var Game = {
   player: null,
   scheduler: null,
   engine: null,
-  init: function() {
+  maps: [],
+  map: null, // current map
+  level: null, // level 1 means we're using maps[0] right now
+  init() {
     this.display = new ROT.Display({
       width: width,
       height: height,
@@ -17,24 +20,68 @@ var Game = {
     document.body.appendChild(this.display.getContainer());
     document.body.appendChild(this.status.display.getContainer());
 
-    this.scheduler = new ROT.Scheduler.Speed();
+    this.player = new Player();
 
-    this.map = new Map(width, height);
-    this.map.generateTiles();
-    this.map.generateEntities(this);
-    this.map.drawAll();
-    this.map.addItem({color:'green',char:'X',name:'test',type:'weapon',value:10});
-    this.map.addItem({color:'gray',char:'#',name:'armor i guess',type:'armor',value:10});
+    this.scheduler = new ROT.Scheduler.Speed();
     this.engine = new ROT.Engine(this.scheduler);
+
+    this.switchToMap(1, false);
+
     this.engine.start();
   },
-  addActor: function(actor){
+  addNewMap() {
+    const map = new Map(width, height);
+    // TODO enemies and items should be different for each level
+    switch(this.level) {
+    default:
+      map.generateEntities();
+      map.addItem({color:'green',char:'X',name:'test',type:'weapon',value:10});
+      map.addItem({color:'gray',char:'#',name:'armor i guess',type:'armor',value:10});
+    }
+    this.maps.push(map);
+    console.log(this.maps);
+  },
+  switchToMap(level, atUpStairs) {
+    const index = level - 1;
+    if (this.map) {
+      this.map.removePlayerEntity(this.player);
+      this.map.removeEnemiesFromScheduler();
+    }
+    if (index >= this.maps.length) {
+      this.addNewMap();
+    } else if (index < 0) {
+      return;
+    }
+    this.level = level;
+    this.map = this.maps[index];
+    const playerPosKey = (atUpStairs ? this.map.upStairsKey : this.map.downStairsKey);
+    console.log(`Placing player at ${playerPosKey}`);
+    this.map.placePlayerEntity(this.player, playerPosKey);
+    this.map.addEnemiesToScheduler();
+    this.display.clear();
+    this.map.drawAll();
+  },
+  addActor(actor){
     this.scheduler.add(actor,true);
   },
-  addEvent: function(event){
+  removeActor(actor){
+    this.scheduler.remove(actor);
+  },
+  addEvent(event){
     this.scheduler.add(event,false);
   },
-  advanceLevel() {
-    this.log.add("grats you won our entire game");
+  ascendStairs() {
+    console.log("up to level " + (this.level - 1));
+    if (this.level > 1) {
+      this.switchToMap(this.level - 1, false);
+      this.log.add("You ascend the stairs.");
+    } else {
+      this.log.add("The abyss stares into you. You find that you cannot leave.");
+    }
+  },
+  descendStairs() {
+    console.log("down to level " + (this.level + 1));
+    this.switchToMap(this.level + 1, true);
+    this.log.add("You descend the stairs.");
   }
 };

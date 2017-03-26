@@ -9,7 +9,6 @@ class Entity {
     this.speed = options.speed;
     this.atk = options.atk;
     this.def = options.def;
-    this.draw();
   }
   damage(dmg) {
     dmg = Math.min(0, -dmg + this.def);

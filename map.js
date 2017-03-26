@@ -9,7 +9,7 @@ const enemy_fish = {
   pathfinder: ROT.Path.AStar
 };
 
-const passableTiles = '.%>';
+const passableTiles = '.%<>';
 
 class Map {
   constructor(width, height) {
@@ -20,6 +20,13 @@ class Map {
     this.items = {}; //items can have the same position, so they can stack on top of each other
     this.freeCells = [];
     this.items = {};
+    this.upStairsKey = null;
+    this.downStairsKey = null;
+    this.generateTiles();
+  }
+  pullFreeCellKey() {
+    var index = Math.floor(ROT.RNG.getUniform() * this.freeCells.length);
+    return this.freeCells.splice(index, 1)[0];
   }
   generateTiles() {
     // '.' tiles
@@ -37,21 +44,47 @@ class Map {
     cellMap.connect(mapCallback.bind(this),1);
 
     // stairs
-    var index = Math.floor(ROT.RNG.getUniform() * this.freeCells.length);
-    var key = this.freeCells.splice(index, 1)[0];
-    this.map[key] = '>';
+    this.upStairsKey = this.pullFreeCellKey();
+    this.downStairsKey = this.pullFreeCellKey();
+    this.map[this.upStairsKey] = '<';
+    this.map[this.downStairsKey] = '>';
   }
-  generateEntities(Game) {
-    Game.player = this.createEntityAtFreeCell(Player);
-    Game.addActor(Game.player);
-    // todo we need different generateTiles() and generateEntities() functions for different maps
-    // this will be the first level (3x fish)
+  generateEntities() {
     for (let i = 0; i < 3; i++) {
-      Game.addActor(this.createEntityAtFreeCell(Enemy, enemy_fish));
+      this.createEntityAtFreeCell(Enemy, enemy_fish);
+    }
+  }
+  placePlayerEntity(player, key) {
+    this.entities[key] = player;
+    var [x, y] = this.  getPos(key);
+    player.x = x;
+    player.y = y;
+    Game.addActor(player);
+  }
+  removePlayerEntity(player) {
+    const key = this.getKey(player.x, player.y);
+    delete this.entities[key];
+    Game.removeActor(player);
+  }
+  addEnemiesToScheduler() {
+    for (let key in this.entities) {
+      if (this.entities[key] != Game.player) {
+        Game.addActor(this.entities[key]);
+      }
+    }
+  }
+  removeEnemiesFromScheduler() {
+    for (let key in this.entities) {
+      if (this.entities[key] != Game.player) {
+        Game.removeActor(this.entities[key]);
+      }
     }
   }
   getKey(x, y) { // convert x, y to key
     return (x + ',' + y);
+  }
+  getPos(key) { // convert key to x, y
+    return key.split(',').map((x) => (parseInt(x)));
   }
   at(x, y) { // get map char at x, y
     return this.map[this.getKey(x, y)];
@@ -75,19 +108,13 @@ class Map {
   }
   drawAll() {
     for (let key in this.map) {
-      let [x, y] = key.split(',').map((x) => (parseInt(x)));
+      let [x, y] = this.getPos(key);
       this.drawTile(x, y);
-    }
-    for (let key in this.entities) {
-      this.drawObject(this.entities[key]);
     }
   }
   createEntityAtFreeCell(what, options){
-    var index = Math.floor(ROT.RNG.getUniform() * this.freeCells.length);
-    var key = this.freeCells.splice(index, 1)[0];
-    var parts = key.split(',');
-    var x = parseInt(parts[0]);
-    var y = parseInt(parts[1]);
+    var key = this.pullFreeCellKey();
+    var [x, y] = this.getPos(key);
     var entity = new what(x, y, options);
     this.entities[key] = entity;
     this.drawObject(entity);
@@ -113,11 +140,8 @@ class Map {
     this.drawObject(entity);
   }
   addItem(options){
-    var index = Math.floor(ROT.RNG.getUniform() * this.freeCells.length);
-    var key = this.freeCells.splice(index, 1)[0];
-    var parts = key.split(',');
-    var x = parseInt(parts[0]);
-    var y = parseInt(parts[1]);
+    var key = this.pullFreeCellKey();
+    var [x, y] = this.getPos(key);
     this.items[key]=new Item(x,y,options);
     this.drawTile(x,y);
   }
@@ -138,9 +162,11 @@ class Map {
   }
   killEntity(entity) {
     const key = this.getKey(entity.x, entity.y);
-    Game.scheduler.remove(entity);
+    Game.removeActor(entity);
     delete this.entities[key];
-    this.map[key] = '%';
+    if (this.map[key] == '.') {
+      this.map[key] = '%';
+    }
     this.drawTile(entity.x, entity.y);
   }
 }

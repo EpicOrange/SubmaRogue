@@ -1,6 +1,6 @@
 class Player extends Entity {
-  constructor(x, y){
-    super(x, y,
+  constructor(){
+    super(0, 0,
       {
         char: '@',
         color: 'yellow',
@@ -28,6 +28,7 @@ class Player extends Entity {
   }
   die() {
     console.log("kill player");
+    // Game.engine.lock();
   }
 
   act(){
@@ -51,13 +52,17 @@ class Player extends Entity {
     keyMap[72] = keyMap[37] = keyMap[52] = 6; // left
     keyMap[89] =              keyMap[55] = 7; // top left
     keyMap[190] = keyMap[32] = keyMap[53] = '.'; // wait
-    keyMap[71] = keyMap[188] = 'i';
+    keyMap[71] = keyMap[188] = 'g';
+    if (e.shiftKey) {
+      keyMap[188] = '<';
+      keyMap[190] = '>';
+    }
 
     var code = e.keyCode;
     e.preventDefault(); // prevent e.g. arrow keys from scrolling the page
 
     switch(keyMap[code]) {
-    case 'i': // check items
+    case 'g': // get items
       var item = Game.map.getItem(this.x,this.y);
       if(item){
         if(item.type=='weapon'){
@@ -75,11 +80,17 @@ class Player extends Entity {
         console.log('no item');
       }
       break;
-    case '.': // do nothing
-      if (e.shiftKey) { // '>', go down stairs
-        Game.advanceLevel();
-      } else { // '.', do nothing
+    case '<':
+      if (Game.map.at(Game.player.x, Game.player.y) == "<") {
+        Game.ascendStairs();
       }
+      break;
+    case '>':
+      if (Game.map.at(Game.player.x, Game.player.y) == ">") {
+        Game.descendStairs();
+      }
+      break;
+    case '.': // wait and do nothing
       break;
     case 0: case 1: case 2: case 3: case 4:
     case 5: case 6: case 7: case 8: case 9:
@@ -97,7 +108,9 @@ class Player extends Entity {
       }
       break;
     default:
-      console.error(`Keymap includes ${code} = ${keyMap[code]} but we don't handle it`);
+      if (code in keyMap) {
+        console.error(`Keymap includes ${code} = ${keyMap[code]} but we don't handle it`);
+      }
     }
     window.removeEventListener('keydown', this);
     Game.engine.unlock();

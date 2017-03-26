@@ -10,6 +10,7 @@ class Log {
     this.messages = [];
   }
   update() {
+    this.display.clear();
     for (let i = 0; i < this.messages.length; i++) {
       this.display.drawText(0, this.logHeight - i - 1, this.messages[i]);
     }
