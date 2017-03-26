@@ -1,9 +1,16 @@
 
+const fish_options = {
+  char: "F",
+  color: "orange",
+  hp: 10,
+  damage: 1,
+  speed: 200,
+  pathfinder: ROT.Path.AStar
+};
+
 var Game = {
   width: 50,
   height: 50,
-  entities: {},//two entities cannot have the same position
-  items: {},//items can have the same position, so they can stack on top of each other
   player: null,
   fish: null,
   scheduler: null,
@@ -18,17 +25,14 @@ var Game = {
       this.scheduler = new ROT.Scheduler.Speed();
       this.engine = new ROT.Engine(this.scheduler);
       this.addActor(this.player);
-      this.fish = this.map.addEntity(Enemy, {
-        char: "F",
-        color: "orange",
-        hp: 10,
-        damage: 1,
-        speed: 200,
-        pathfinder: ROT.Path.AStar
-      });
-      this.addActor(this.fish);
       this.engine.start();
+
       this.map.addItem({color:'green',char:'X',name:'test',type:'weapon',value:10});
+
+      this.map.generateEnemies();
+
+      this.fish = this.map.addEntity(Enemy, fish_options);
+      this.addActor(this.fish);
   },
   addActor: function(actor){
     this.scheduler.add(actor,true);

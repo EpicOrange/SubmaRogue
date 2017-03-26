@@ -6,6 +6,8 @@ class Map {
     this.width = width;
     this.height = height;
     this.map = {};
+    this.entities = {}; //two entities cannot have the same position
+    this.items = {}; //items can have the same position, so they can stack on top of each other
     this.freeCells = [];
     this.generate();
     this.items = {};
@@ -24,6 +26,9 @@ class Map {
     }
     for(var i=0; i<10;i++)cellMap.create();
     cellMap.connect(mapCallback.bind(this),1);
+  }
+  generateEnemies() {
+
   }
   getKey(x, y) { // convert x, y to key
     return (x + "," + y);

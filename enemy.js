@@ -14,7 +14,7 @@ class Enemy extends Entity {
     pathfinder.compute(this.x, this.y, (x, y) => {path.push([x, y]);});
     if (path.length <= 2) { // path contains only the fish and the player's position
       // attack player
-      // Game.player.damage(this.damage);
+      Game.player.damage(this.damage);
     } else {
       this.moveTo(...path[1]);
     }
