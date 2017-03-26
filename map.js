@@ -1,4 +1,3 @@
-
 const enemy_fish = {
   char: 'α',
   color: 'orange',
@@ -52,7 +51,7 @@ class Map {
   }
   generateEntities() {
     for (let i = 0; i < 3; i++) {
-      this.createEntityAtFreeCell(Enemy, enemy_fish);
+      this.createEntityAtFreeCell(Enemy, enemies.squid);
     }
   }
   placePlayerEntity(player, key) {
